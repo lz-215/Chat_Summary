@@ -5,21 +5,34 @@
 
 const fileParser = require('./file-parser');
 const textAnalyzer = require('./text-analyzer');
+const storage = require('./cloudflare-storage');
 const fs = require('fs');
 const path = require('path');
 
 /**
  * 分析聊天文件
- * @param {string} filePath - 聊天文件路径
+ * @param {string|Buffer} fileContent - 聊天文件内容或文件路径
  * @param {string} outputPath - 分析结果输出路径
  * @returns {Object} 分析结果
  */
-async function analyzeChat(filePath, outputPath) {
+async function analyzeChat(fileContent, outputPath) {
     try {
-        console.log(`开始分析聊天文件: ${filePath}`);
+        console.log(`开始分析聊天内容`);
 
         // 解析聊天文件
-        const parseResult = fileParser.parseFile(filePath);
+        let parseResult;
+        let filePath = '';
+
+        if (typeof fileContent === 'string' && fs.existsSync(fileContent)) {
+            // 如果是文件路径
+            filePath = fileContent;
+            parseResult = fileParser.parseFile(fileContent);
+        } else {
+            // 如果是文件内容
+            filePath = 'memory_file_' + Date.now();
+            parseResult = fileParser.parseContent(fileContent);
+        }
+
         const { messages, metadata } = parseResult;
 
         console.log(`解析完成，共 ${messages.length} 条消息`);
@@ -97,13 +110,14 @@ async function analyzeChat(filePath, outputPath) {
 
         // 保存分析结果
         if (outputPath) {
-            const outputDir = path.dirname(outputPath);
-            if (!fs.existsSync(outputDir)) {
-                fs.mkdirSync(outputDir, { recursive: true });
+            try {
+                // 使用存储模块保存分析结果
+                const analysisId = path.basename(outputPath, '.json');
+                await storage.saveAnalysisResult(analysisId, result);
+                console.log(`分析结果已保存至: ${outputPath}`);
+            } catch (error) {
+                console.error('保存分析结果时出错:', error);
             }
-
-            fs.writeFileSync(outputPath, JSON.stringify(result, null, 2), 'utf8');
-            console.log(`分析结果已保存至: ${outputPath}`);
         }
 
         return {

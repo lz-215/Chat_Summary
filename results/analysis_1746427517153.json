@@ -1,0 +1,119 @@
+{
+  "id": "1746427517153_2-3",
+  "timestamp": "2025-05-05T06:46:43.603Z",
+  "language": "unknown",
+  "metadata": {
+    "platform": "generic",
+    "title": "1746427517153_2-3.txt",
+    "exportDate": "2025-05-05T06:45:17.183Z",
+    "fileName": "1746427517153_2-3.txt",
+    "fileSize": 92169,
+    "messageCount": 1
+  },
+  "statistics": {
+    "totalMessages": 1,
+    "messageCountByParticipant": {},
+    "messageCountByDate": {},
+    "messageLengthStats": {
+      "average": 31289,
+      "max": 31289,
+      "min": 31289,
+      "total": 31289
+    },
+    "timeStats": {
+      "mostActiveHour": 0,
+      "messageCountByHour": {}
+    }
+  },
+  "top_keywords": {
+    "lv": 142,
+    "lv1": 46,
+    "ai": 46,
+    "lv2": 46,
+    "may": 30,
+    "https": 22,
+    "com": 21,
+    "revokemsg": 16,
+    "luke": 13,
+    "amp": 12,
+    "scys": 11,
+    "activity": 11,
+    "task": 9,
+    "detail": 9,
+    "number": 9,
+    "stage_id": 9,
+    "lucia": 9,
+    "lv3": 9,
+    "title": 8,
+    "description": 8
+  },
+  "sentiment": {
+    "overall": 0.018565400843881856,
+    "byParticipant": {}
+  },
+  "summary": "- 小红书运营方法分享  \n- 虚拟商品自动发货工具  \n- 退款处理建议  \n- 教练点评优化产品  \n- 话题笔记提升流量  \n- AI工具辅助内容生产",
+  "events": [
+    {
+      "time": "周一",
+      "sender": "领队-金又又",
+      "content": "宣布开始【教练点评】，由教练-王多维进行日志点评",
+      "type": "会议安排"
+    },
+    {
+      "time": "",
+      "sender": "李蓬伟",
+      "content": "提出客户自动发货后申请退货的问题，教练建议拒绝退款并截图发货记录",
+      "type": "关键问题"
+    },
+    {
+      "time": "",
+      "sender": "青屿-贵港-Lv1",
+      "content": "询问商品笔记与一般笔记的选择策略，教练建议发话题笔记聚拢人群",
+      "type": "关键问题"
+    },
+    {
+      "time": "4月8日周二晚8点",
+      "sender": "领队-金又又",
+      "content": "预告教练-巧克力的图文分享《入局小红书电商，如何细化每一阶段的目标》",
+      "type": "会议安排"
+    },
+    {
+      "time": "",
+      "sender": "亮晶晶",
+      "content": "询问小红书私信发百度网盘链接的合规性，教练明确禁止此行为",
+      "type": "重要决定"
+    },
+    {
+      "time": "",
+      "sender": "晓麒",
+      "content": "反馈店铺账号封禁问题，教练-叁斤表示申诉成功率低",
+      "type": "关键问题"
+    },
+    {
+      "time": "航海最后一天晚8点",
+      "sender": "领队-金又又",
+      "content": "通知举行靠岸仪式并总结航海成果，公布保证金退款流程",
+      "type": "截止日期"
+    },
+    {
+      "time": "",
+      "sender": "志南-长沙-Lv.3",
+      "content": "询问航海手册推荐赛道是否已验证，教练-叁斤回应不一定验证过",
+      "type": "关键问题"
+    },
+    {
+      "time": "",
+      "sender": "五一-成都-lv4",
+      "content": "询问商品多次改价是否影响出单，教练-王多维指出除非价格过高否则无关",
+      "type": "关键问题"
+    },
+    {
+      "time": "",
+      "sender": "阿星-杭州-Lv.1",
+      "content": "请教私域经营方法，教练-巧克力建议模仿同行朋友圈话术",
+      "type": "任务分配"
+    }
+  ],
+  "total_messages": 1,
+  "senders": {}
+}

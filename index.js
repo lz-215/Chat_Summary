@@ -11,24 +11,36 @@ const htmlExportService = require('./utils/html-export-service');
 
 // 导入路由
 
-// 初始化Express应用
-const app = express();
-const PORT = process.env.PORT || 3000;
+// 创建Express应用的函数
+function createServer() {
+  // 初始化Express应用
+  const app = express();
 
-// 确保必要的目录存在
-const uploadsDir = path.join(__dirname, 'uploads');
-const resultsDir = path.join(__dirname, 'results');
-const tmpDir = path.join(__dirname, 'tmp');
+  // 确保必要的目录存在
+  try {
+    const uploadsDir = path.join(__dirname, 'uploads');
+    const resultsDir = path.join(__dirname, 'results');
+    const tmpDir = path.join(__dirname, 'tmp');
 
-// 创建目录（如果不存在）
-if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
-if (!fs.existsSync(resultsDir)) fs.mkdirSync(resultsDir, { recursive: true });
-if (!fs.existsSync(tmpDir)) fs.mkdirSync(tmpDir, { recursive: true });
+    if (!fs.existsSync(uploadsDir)) {
+      fs.mkdirSync(uploadsDir, { recursive: true });
+    }
 
-console.log('目录检查完成:');
-console.log('- 上传目录:', uploadsDir);
-console.log('- 结果目录:', resultsDir);
-console.log('- 临时目录:', tmpDir);
+    if (!fs.existsSync(resultsDir)) {
+      fs.mkdirSync(resultsDir, { recursive: true });
+    }
+
+    if (!fs.existsSync(tmpDir)) {
+      fs.mkdirSync(tmpDir, { recursive: true });
+    }
+
+    console.log('目录检查完成:');
+    console.log(`- 上传目录: ${uploadsDir}`);
+    console.log(`- 结果目录: ${resultsDir}`);
+    console.log(`- 临时目录: ${tmpDir}`);
+  } catch (error) {
+    console.error('创建目录时出错:', error);
+  }
 
 // 中间件
 app.use(cors());
@@ -491,11 +503,19 @@ app.use((err, req, res, next) => {
     res.status(500).send('服务器错误');
 });
 
-// 启动服务器
-app.listen(PORT, () => {
+  return app;
+}
+
+// 如果直接运行此文件，则启动服务器
+if (require.main === module) {
+  const app = createServer();
+  const PORT = process.env.PORT || 3003;
+  app.listen(PORT, () => {
     console.log(`服务器运行在 http://localhost:${PORT}`);
     console.log('静态文件目录:', path.join(__dirname, 'static'));
     console.log('模板文件目录:', path.join(__dirname, 'templates'));
-});
+  });
+}
 
-module.exports = app;
+// 导出createServer函数供Cloudflare Workers使用
+module.exports = { createServer };

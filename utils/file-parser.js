@@ -702,7 +702,63 @@ function parseGenericTxt(lines) {
     return messages.filter(msg => msg.content && msg.content.trim());
 }
 
+/**
+ * 解析聊天内容（字符串或Buffer）
+ * @param {string|Buffer} content - 聊天内容
+ * @returns {Object} 解析结果，包含消息数组和元数据
+ */
+function parseContent(content) {
+    try {
+        // 确保内容是字符串
+        let textContent = '';
+        if (Buffer.isBuffer(content)) {
+            // 如果是Buffer，尝试使用UTF-8解码
+            textContent = content.toString('utf8');
+        } else if (typeof content === 'string') {
+            textContent = content;
+        } else {
+            throw new Error('Invalid content type. Expected string or Buffer.');
+        }
+
+        // 按行分割
+        const lines = textContent.split(/\r?\n/);
+
+        // 尝试识别聊天平台和格式
+        const platform = detectTxtPlatform(lines);
+
+        // 解析消息
+        let messages = [];
+        let metadata = {
+            platform,
+            title: 'Chat Analysis',
+            exportDate: new Date().toISOString()
+        };
+
+        if (platform === 'wechat') {
+            const result = parseWeChatTxt(lines);
+            messages = result.messages;
+            metadata = { ...metadata, ...result.metadata };
+        } else if (platform === 'whatsapp') {
+            const result = parseWhatsAppTxt(lines);
+            messages = result.messages;
+            metadata = { ...metadata, ...result.metadata };
+        } else {
+            // 通用TXT解析策略
+            messages = parseGenericTxt(lines);
+        }
+
+        return {
+            messages,
+            metadata
+        };
+    } catch (error) {
+        console.error('Error parsing content:', error);
+        throw new Error(`Failed to parse content: ${error.message}`);
+    }
+}
+
 module.exports = {
     parseFile,
+    parseContent,
     detectEncoding
 };

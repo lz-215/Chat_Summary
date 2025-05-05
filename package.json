@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
+    "build": "npm install",
+    "deploy": "wrangler deploy",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -31,7 +33,8 @@
     "jieba": "^1.0.0",
     "morgan": "^1.10.0",
     "natural": "^6.2.0",
-    "openai": "^4.96.2"
+    "openai": "^4.96.2",
+    "wrangler": "^3.22.1"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
