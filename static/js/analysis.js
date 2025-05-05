@@ -1260,7 +1260,6 @@ function generateHtmlContent(data) {
 </body>
 </html>`;
 }
-
 // 获取颜色
 function getColorForIndex(index) {
     const colors = [
@@ -1410,3 +1409,4 @@ function createFallbackData(analysisId) {
         }
     };
 }
+

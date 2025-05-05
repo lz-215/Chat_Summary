@@ -8,6 +8,8 @@
     "dev": "nodemon index.js",
     "build": "npm install",
     "deploy": "wrangler deploy",
+    "upload-static": "node upload-to-cloudflare.js",
+    "deploy-cloudflare": "npm run upload-static && npm run deploy",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

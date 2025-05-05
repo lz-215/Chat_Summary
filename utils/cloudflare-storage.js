@@ -9,6 +9,16 @@
 const isCloudflare = typeof globalThis.CHAT_ANALYSIS_STORAGE !== 'undefined' ||
                     (typeof process === 'undefined' || !process.version);
 
+// 在ESM模块中导出
+const storage = {
+  saveAnalysisResult,
+  getAnalysisResult,
+  saveUploadedFile,
+  getUploadedFile,
+  saveHtmlExport,
+  getHtmlExport
+};
+
 /**
  * 保存分析结果
  * @param {string} analysisId - 分析ID
@@ -166,11 +176,16 @@ async function getHtmlExport(exportId) {
   }
 }
 
-module.exports = {
-  saveAnalysisResult,
-  getAnalysisResult,
-  saveUploadedFile,
-  getUploadedFile,
-  saveHtmlExport,
-  getHtmlExport
-};
+// 兼容CommonJS和ESM
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    saveAnalysisResult,
+    getAnalysisResult,
+    saveUploadedFile,
+    getUploadedFile,
+    saveHtmlExport,
+    getHtmlExport
+  };
+}
+
+export default storage;

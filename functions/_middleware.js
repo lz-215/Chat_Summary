@@ -1,6 +1,9 @@
 // Cloudflare Worker 适配器
 import { createServer } from '../index.js';
 
+// 导入存储模块
+import storage from '../utils/cloudflare-storage.js';
+
 // 全局变量，使其在其他模块中可访问
 globalThis.CHAT_ANALYSIS_STORAGE = null;
 
@@ -9,11 +12,22 @@ export default {
     // 设置全局KV存储变量，使其在其他模块中可访问
     globalThis.CHAT_ANALYSIS_STORAGE = env.CHAT_ANALYSIS_STORAGE;
 
-    // 创建Express应用
-    const app = createServer();
+    try {
+      // 创建Express应用
+      const app = createServer();
 
-    // 创建一个适配器，将Express请求处理为Cloudflare Worker请求
-    return handleRequest(app, request, env);
+      // 创建一个适配器，将Express请求处理为Cloudflare Worker请求
+      return await handleRequest(app, request, env, ctx);
+    } catch (error) {
+      console.error('Worker error:', error);
+      return new Response('Server Error: ' + (error.message || 'Unknown error'), {
+        status: 500,
+        headers: {
+          'Content-Type': 'text/plain',
+          'Access-Control-Allow-Origin': '*'
+        }
+      });
+    }
   }
 };
 
@@ -22,9 +36,10 @@ export default {
  * @param {Express.Application} app - Express应用
  * @param {Request} request - Cloudflare Worker请求
  * @param {Object} env - Cloudflare Worker环境变量
+ * @param {Object} ctx - Cloudflare Worker上下文
  * @returns {Promise<Response>} - Cloudflare Worker响应
  */
-async function handleRequest(app, request, env) {
+async function handleRequest(app, request, env, ctx) {
   // 创建一个新的URL对象，用于解析请求URL
   const url = new URL(request.url);
 

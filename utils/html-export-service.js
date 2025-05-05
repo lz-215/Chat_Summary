@@ -2,9 +2,28 @@
  * HTML导出服务 - 提供将聊天分析结果导出为HTML格式的功能
  */
 
-const fs = require('fs');
-const path = require('path');
-const { ChartJSNodeCanvas } = require('chartjs-node-canvas');
+// 检查是否在Cloudflare环境中运行
+const isCloudflare = typeof process === 'undefined' || !process.version;
+
+// 根据环境加载不同的模块
+let fs, path, ChartJSNodeCanvas;
+
+if (!isCloudflare) {
+    // 在Node.js环境中
+    fs = require('fs');
+    path = require('path');
+    ChartJSNodeCanvas = require('chartjs-node-canvas').ChartJSNodeCanvas;
+} else {
+    // 在Cloudflare环境中
+    // 这些模块在Cloudflare环境中不可用，使用模拟对象代替
+    fs = {
+        writeFileSync: () => {}
+    };
+    path = {
+        join: (...args) => args.join('/')
+    };
+}
+
 const visualizationService = require('./visualization-service');
 
 /**
@@ -556,6 +575,41 @@ function generateHtmlContent(analysisResult, visualizationData, chartImages) {
 </html>`;
 }
 
-module.exports = {
-    generateHtmlExport
+/**
+ * 生成HTML内容（不写入文件，直接返回HTML字符串）
+ * @param {Object} analysisResult - 分析结果对象
+ * @returns {Promise<string>} HTML内容
+ */
+async function generateHtmlString(analysisResult) {
+    try {
+        // 获取可视化数据
+        const visualizationData = visualizationService.generateAllVisualizationData(analysisResult);
+
+        // 在Cloudflare环境中，我们不能生成图表图像，所以使用空对象
+        const chartImages = isCloudflare ? {
+            activityChart: '',
+            participantChart: '',
+            lengthChart: ''
+        } : await generateChartImages(visualizationData);
+
+        // 生成HTML内容
+        return generateHtmlContent(analysisResult, visualizationData, chartImages);
+    } catch (error) {
+        console.error('生成HTML内容错误:', error);
+        throw error;
+    }
+}
+
+// 兼容CommonJS和ESM
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        generateHtmlExport,
+        generateHtmlString
+    };
+}
+
+// 导出ESM模块
+export default {
+    generateHtmlExport,
+    generateHtmlString
 };
