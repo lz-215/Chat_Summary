@@ -1,23 +1,12 @@
 /**
  * Cloudflare存储处理模块
- *
+ * 
  * 这个模块提供了在Cloudflare Workers环境和本地环境中统一的存储接口
  * 在Cloudflare环境中使用KV存储，在本地环境中使用文件系统
  */
 
 // 检查是否在Cloudflare环境中运行
-const isCloudflare = typeof globalThis.CHAT_ANALYSIS_STORAGE !== 'undefined' ||
-                    (typeof process === 'undefined' || !process.version);
-
-// 在ESM模块中导出
-const storage = {
-  saveAnalysisResult,
-  getAnalysisResult,
-  saveUploadedFile,
-  getUploadedFile,
-  saveHtmlExport,
-  getHtmlExport
-};
+const isCloudflare = typeof globalThis.CHAT_ANALYSIS_STORAGE !== 'undefined';
 
 /**
  * 保存分析结果
@@ -34,11 +23,11 @@ async function saveAnalysisResult(analysisId, data) {
     const fs = require('fs');
     const path = require('path');
     const resultsDir = path.join(__dirname, '..', 'results');
-
+    
     if (!fs.existsSync(resultsDir)) {
       fs.mkdirSync(resultsDir, { recursive: true });
     }
-
+    
     fs.writeFileSync(
       path.join(resultsDir, `${analysisId}.json`),
       JSON.stringify(data),
@@ -62,12 +51,12 @@ async function getAnalysisResult(analysisId) {
     const fs = require('fs');
     const path = require('path');
     const filePath = path.join(__dirname, '..', 'results', `${analysisId}.json`);
-
+    
     if (fs.existsSync(filePath)) {
       const data = fs.readFileSync(filePath, 'utf8');
       return JSON.parse(data);
     }
-
+    
     return null;
   }
 }
@@ -87,11 +76,11 @@ async function saveUploadedFile(fileId, content) {
     const fs = require('fs');
     const path = require('path');
     const uploadsDir = path.join(__dirname, '..', 'uploads');
-
+    
     if (!fs.existsSync(uploadsDir)) {
       fs.mkdirSync(uploadsDir, { recursive: true });
     }
-
+    
     fs.writeFileSync(
       path.join(uploadsDir, fileId),
       content,
@@ -115,11 +104,11 @@ async function getUploadedFile(fileId) {
     const fs = require('fs');
     const path = require('path');
     const filePath = path.join(__dirname, '..', 'uploads', fileId);
-
+    
     if (fs.existsSync(filePath)) {
       return fs.readFileSync(filePath, 'utf8');
     }
-
+    
     return null;
   }
 }
@@ -139,11 +128,11 @@ async function saveHtmlExport(exportId, content) {
     const fs = require('fs');
     const path = require('path');
     const exportsDir = path.join(__dirname, '..', 'results');
-
+    
     if (!fs.existsSync(exportsDir)) {
       fs.mkdirSync(exportsDir, { recursive: true });
     }
-
+    
     fs.writeFileSync(
       path.join(exportsDir, `${exportId}.html`),
       content,
@@ -167,25 +156,20 @@ async function getHtmlExport(exportId) {
     const fs = require('fs');
     const path = require('path');
     const filePath = path.join(__dirname, '..', 'results', `${exportId}.html`);
-
+    
     if (fs.existsSync(filePath)) {
       return fs.readFileSync(filePath, 'utf8');
     }
-
+    
     return null;
   }
 }
 
-// 兼容CommonJS和ESM
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = {
-    saveAnalysisResult,
-    getAnalysisResult,
-    saveUploadedFile,
-    getUploadedFile,
-    saveHtmlExport,
-    getHtmlExport
-  };
-}
-
-export default storage;
+module.exports = {
+  saveAnalysisResult,
+  getAnalysisResult,
+  saveUploadedFile,
+  getUploadedFile,
+  saveHtmlExport,
+  getHtmlExport
+};

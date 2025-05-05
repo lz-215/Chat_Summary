@@ -111,7 +111,7 @@ async function generateSummaryWithDeepSeek(messages, maxLength = 500) {
     // 首先检查API是否可用
     if (!(await isApiAvailable())) {
         console.log('DeepSeek API is not available, unable to generate summary');
-        throw new Error('DeepSeek API is not available');
+        throw new Error('无法连接到DeepSeek API，请检查网络连接或API密钥配置');
     }
 
     try {
@@ -124,25 +124,21 @@ async function generateSummaryWithDeepSeek(messages, maxLength = 500) {
         }).join('\n');
 
         // 构建提示
-        const prompt = `请对以下聊天记录进行极度精简的总结，只提取核心内容，忽略所有时间戳、问候语等无关信息。
+        const prompt = `请对以下聊天记录进行详细分析并生成摘要，重点关注实际对话内容，忽略时间戳、问候语等无关信息。
 
 聊天记录：
 ${messageContent}
 
 要求：
-1. 不要使用任何标题或分类（如"会话摘要"、"关键讨论点"等）
-2. 直接以要点形式列出最重要的3-5个信息点
-3. 每个要点不超过8个汉字
-4. 使用短句，省略主语
-5. 整个摘要不超过100字
+1. 摘要必须基于实际聊天内容，不要生成与聊天内容无关的摘要
+2. 如果聊天内容不足或无法理解，请直接说明"无法从聊天记录中提取有效信息"
+3. 提取对话中的主要话题、讨论要点和结论
+4. 使用简洁的语言描述，但要保留关键信息
+5. 整个摘要控制在200字以内
 6. 以中文回复
 
-格式示例：
-- 讨论电商平台进展
-- 确定三个核心功能
-- AR功能需专门开发
-- 初步设计需两个月
-- 下周继续讨论`;
+格式示例（仅供参考，请根据实际聊天内容生成）：
+这是一段关于项目开发的讨论。参与者讨论了电商平台的进展情况，确定了三个核心功能需要优先实现。其中AR功能需要专门团队开发，初步设计预计需要两个月时间。团队决定下周继续讨论具体实施方案。`;
 
         // 设置超时Promise
         const timeoutPromise = new Promise((_, reject) => {
@@ -207,7 +203,7 @@ async function extractEventsWithDeepSeek(messages, limit = 5) {
     // 首先检查API是否可用
     if (!(await isApiAvailable())) {
         console.log('DeepSeek API is not available, unable to extract events');
-        throw new Error('DeepSeek API is not available');
+        throw new Error('无法连接到DeepSeek API，请检查网络连接或API密钥配置');
     }
 
     try {
@@ -220,12 +216,16 @@ async function extractEventsWithDeepSeek(messages, limit = 5) {
         }).join('\n');
 
         // 构建提示
-        const prompt = `请从以下聊天记录中提取${limit}个关键事件或重要信息。关键事件可能包括：
-- 会议安排
+        const prompt = `请仔细分析以下聊天记录，提取${limit}个关键事件或重要信息。只提取实际存在于聊天记录中的内容，不要生成不存在的事件。
+
+关键事件可能包括但不限于：
+- 会议安排和时间
 - 截止日期
 - 任务分配
 - 重要决定
 - 关键问题
+- 项目里程碑
+- 重要通知
 
 聊天记录：
 ${messageContent}
@@ -237,32 +237,27 @@ ${messageContent}
     {
       "time": "事件时间（如果有）",
       "sender": "发送者",
-      "content": "事件描述",
+      "content": "事件描述（请使用聊天记录中的原始内容，不要自行编造或过度总结）",
       "type": "事件类型（如会议、截止日期、任务等）"
     },
     ...
   ]
 }
 
-示例输出：
+如果聊天记录中没有明确的关键事件或内容不足，请返回一个包含说明的事件：
+
 {
   "events": [
     {
-      "time": "2023-05-01",
-      "sender": "张三",
-      "content": "确定项目截止日期为6月30日",
-      "type": "截止日期"
-    },
-    {
       "time": "",
-      "sender": "李四",
-      "content": "负责UI设计部分",
-      "type": "任务分配"
+      "sender": "系统",
+      "content": "聊天记录中未发现明确的关键事件",
+      "type": "提示"
     }
   ]
 }
 
-如果找不到足够的事件，请返回尽可能多的有意义的事件。请确保返回的是有效的JSON格式，必须包含"events"数组字段。`;
+请确保返回的是有效的JSON格式，必须包含"events"数组字段。`;
 
         // 设置超时Promise
         const timeoutPromise = new Promise((_, reject) => {
@@ -335,9 +330,9 @@ ${messageContent}
                     console.error('无法在返回的JSON中找到事件数组');
                     events = [{
                         time: '',
-                        sender: 'System',
-                        content: '无法从API响应中提取事件',
-                        type: 'Error'
+                        sender: '系统',
+                        content: '无法从聊天记录中提取有效事件',
+                        type: '提示'
                     }];
                 }
             }

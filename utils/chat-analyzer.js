@@ -17,27 +17,18 @@ const path = require('path');
  */
 async function analyzeChat(fileContent, outputPath) {
     try {
-        console.log(`Starting chat content analysis`);
-
-        // 检查是否在Cloudflare或Vercel环境中运行
-        const isCloudflare = typeof process === 'undefined' || !process.version;
-        const isVercel = process.env.VERCEL ? true : false;
-        console.log('Environment detection in chat-analyzer:');
-        console.log('- isCloudflare:', isCloudflare);
-        console.log('- isVercel:', isVercel);
+        console.log(`开始分析聊天内容`);
 
         // 解析聊天文件
         let parseResult;
         let filePath = '';
 
-        if (!isCloudflare && !isVercel && typeof fileContent === 'string' && fs.existsSync(fileContent)) {
-            // 如果是文件路径（仅在本地环境中）
-            console.log('Processing file from path:', fileContent);
+        if (typeof fileContent === 'string' && fs.existsSync(fileContent)) {
+            // 如果是文件路径
             filePath = fileContent;
             parseResult = fileParser.parseFile(fileContent);
         } else {
-            // 如果是文件内容或在Cloudflare/Vercel环境中
-            console.log('Processing file from content (Serverless environment)');
+            // 如果是文件内容
             filePath = 'memory_file_' + Date.now();
             parseResult = fileParser.parseContent(fileContent);
         }
@@ -94,17 +85,15 @@ async function analyzeChat(fileContent, outputPath) {
             }];
         }
 
-        // 使用之前定义的环境变量
-
         // 组合分析结果
         const result = {
-            id: isCloudflare ? filePath : path.basename(filePath, path.extname(filePath)),
+            id: path.basename(filePath, path.extname(filePath)),
             timestamp: new Date().toISOString(),
             language,
             metadata: {
                 ...metadata,
-                fileName: isCloudflare ? filePath : path.basename(filePath),
-                fileSize: isCloudflare ? (typeof fileContent === 'string' ? fileContent.length : 0) : fs.statSync(filePath).size,
+                fileName: path.basename(filePath),
+                fileSize: fs.statSync(filePath).size,
                 messageCount: messages.length
             },
             statistics,

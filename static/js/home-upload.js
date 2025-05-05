@@ -41,7 +41,6 @@ document.addEventListener('DOMContentLoaded', function() {
             // Create form data
             const formData = new FormData();
             formData.append('file', uploadedFile); // 使用'file'作为字段名，与后端API匹配
-            formData.append('fileName', uploadedFile.name); // 添加文件名
 
             // 检查FormData是否正确添加了文件
             console.log('FormData已创建，包含文件:', uploadedFile.name);
@@ -87,12 +86,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
             console.log('开始发送API请求...');
 
-            // 获取当前域名，构建完整的API URL
-            const apiUrl = new URL('/api/upload-chat', window.location.origin).href;
-            console.log('使用API URL:', apiUrl);
-
             // Make API call to upload and analyze the file
-            fetch(apiUrl, {
+            fetch('/api/upload-chat', {
                 method: 'POST',
                 body: formData,
                 // 增加超时时间
@@ -150,15 +145,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
 
                 // 显示用户友好的错误消息
-                let errorMsg = 'Error during upload or analysis';
+                let errorMsg = '上传或分析过程中出错';
                 if (error.message) {
                     if (error.message.includes('Failed to fetch') ||
                         error.message.includes('NetworkError')) {
-                        errorMsg = 'Network connection error. Please check your connection and try again.';
+                        errorMsg = '网络连接错误，请检查您的网络连接并重试';
                     } else if (error.message.includes('timeout')) {
-                        errorMsg = 'Request timeout. The server might be busy, please try again later.';
+                        errorMsg = '请求超时，服务器可能繁忙，请稍后重试';
                     } else {
-                        errorMsg = `Error: ${error.message}`;
+                        errorMsg = `错误: ${error.message}`;
                     }
                 }
 
