@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "index.js", "use": "@vercel/node" },
+    { "src": "templates/**", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/static/(.*)", "dest": "/static/$1" },
+    { "src": "/api/(.*)", "dest": "/index.js" },
+    { "src": "/(.*\\.(js|css|svg|png|jpg|jpeg|gif|ico))", "dest": "/$1" },
+    { "src": "/(.*)", "dest": "/index.js" }
+  ],
+  "env": {
+    "DEEPSEEK_API_KEY": "sk-902bac46d4f44d81a6089ff095401a6d",
+    "DEEPSEEK_MODEL": "deepseek-chat"
+  }
+}

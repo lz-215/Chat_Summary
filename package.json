@@ -7,9 +7,8 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "build": "npm install",
-    "deploy": "wrangler deploy",
-    "upload-static": "node upload-to-cloudflare.js",
-    "deploy-cloudflare": "npm run upload-static && npm run deploy",
+    "vercel-build": "npm install",
+    "deploy": "node deploy-to-vercel.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

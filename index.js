@@ -1,30 +1,24 @@
-// 检查是否在Cloudflare环境中运行
+// 检查是否在Cloudflare或Vercel环境中运行
 const isCloudflare = typeof process === 'undefined' || !process.version;
+const isVercel = process.env.VERCEL === '1';
 
 // 根据环境加载不同的模块
 let express, cors, morgan, path, fs, fileUpload, chatAnalyzer, visualizationService, htmlExportService, storage;
 
-if (!isCloudflare) {
-  // 在Node.js环境中
-  require('dotenv').config({ path: './config/.env' });
-  express = require('express');
-  cors = require('cors');
-  morgan = require('morgan');
-  path = require('path');
-  fs = require('fs');
-  fileUpload = require('express-fileupload');
-  chatAnalyzer = require('./utils/chat-analyzer');
-  visualizationService = require('./utils/visualization-service');
-  htmlExportService = require('./utils/html-export-service');
-  storage = require('./utils/cloudflare-storage');
-} else {
+// 在所有环境中加载基本模块
+require('dotenv').config({ path: './config/.env' });
+express = require('express');
+cors = require('cors');
+path = require('path');
+chatAnalyzer = require('./utils/chat-analyzer');
+visualizationService = require('./utils/visualization-service');
+htmlExportService = require('./utils/html-export-service');
+storage = require('./utils/cloudflare-storage');
+
+if (isCloudflare) {
   // 在Cloudflare环境中
-  // 注意：这些导入在Cloudflare环境中可能不可用，需要适配
-  express = require('express');
-  cors = require('cors');
   // morgan在Cloudflare环境中不可用，使用空函数代替
-  morgan = () => (req, res, next) => next();
-  path = require('path');
+  morgan = () => (_, __, next) => next();
   // fs在Cloudflare环境中不可用，使用模拟对象代替
   fs = {
     existsSync: () => false,
@@ -33,10 +27,11 @@ if (!isCloudflare) {
     writeFileSync: () => {}
   };
   fileUpload = require('express-fileupload');
-  chatAnalyzer = require('./utils/chat-analyzer');
-  visualizationService = require('./utils/visualization-service');
-  htmlExportService = require('./utils/html-export-service');
-  storage = require('./utils/cloudflare-storage');
+} else {
+  // 在Node.js或Vercel环境中
+  morgan = require('morgan');
+  fs = require('fs');
+  fileUpload = require('express-fileupload');
 }
 
 // 导入路由
@@ -641,24 +636,8 @@ app.get('/api/export-html/:analysisId', async (req, res) => {
 
 // 前端路由
 app.get('/', async (req, res) => {
-    if (isCloudflare) {
-        // 在Cloudflare环境中，使用KV存储获取模板
-        try {
-            const content = await CHAT_ANALYSIS_STORAGE.get('file:templates/index.html');
-            if (content) {
-                res.set('Content-Type', 'text/html');
-                res.send(content);
-            } else {
-                res.status(404).send('Home page not found');
-            }
-        } catch (error) {
-            console.error('Error serving home page:', error);
-            res.status(500).send('Internal Server Error');
-        }
-    } else {
-        // 在本地环境中使用文件系统
-        res.sendFile(path.join(__dirname, 'templates', 'index.html'));
-    }
+    // 在所有环境中使用文件系统
+    res.sendFile(path.join(__dirname, 'templates', 'index.html'));
 });
 
 
@@ -666,115 +645,33 @@ app.get('/', async (req, res) => {
 
 
 app.get('/analysis', async (req, res) => {
-    if (isCloudflare) {
-        // 在Cloudflare环境中，使用KV存储获取模板
-        try {
-            const content = await CHAT_ANALYSIS_STORAGE.get('file:templates/analysis.html');
-            if (content) {
-                res.set('Content-Type', 'text/html');
-                res.send(content);
-            } else {
-                res.status(404).send('Analysis page not found');
-            }
-        } catch (error) {
-            console.error('Error serving analysis page:', error);
-            res.status(500).send('Internal Server Error');
-        }
-    } else {
-        // 在本地环境中使用文件系统
-        res.sendFile(path.join(__dirname, 'templates', 'analysis.html'));
-    }
+    // 在所有环境中使用文件系统
+    res.sendFile(path.join(__dirname, 'templates', 'analysis.html'));
 });
 
 // 删除upload路由，因为已经移除了upload.html
 
 app.get('/privacy-policy', async (req, res) => {
-    if (isCloudflare) {
-        // 在Cloudflare环境中，使用KV存储获取模板
-        try {
-            const content = await CHAT_ANALYSIS_STORAGE.get('file:templates/privacy-policy.html');
-            if (content) {
-                res.set('Content-Type', 'text/html');
-                res.send(content);
-            } else {
-                res.status(404).send('Privacy policy page not found');
-            }
-        } catch (error) {
-            console.error('Error serving privacy policy page:', error);
-            res.status(500).send('Internal Server Error');
-        }
-    } else {
-        // 在本地环境中使用文件系统
-        res.sendFile(path.join(__dirname, 'templates', 'privacy-policy.html'));
-    }
+    // 在所有环境中使用文件系统
+    res.sendFile(path.join(__dirname, 'templates', 'privacy-policy.html'));
 });
 
 app.get('/terms-of-service', async (req, res) => {
-    if (isCloudflare) {
-        // 在Cloudflare环境中，使用KV存储获取模板
-        try {
-            const content = await CHAT_ANALYSIS_STORAGE.get('file:templates/terms-of-service.html');
-            if (content) {
-                res.set('Content-Type', 'text/html');
-                res.send(content);
-            } else {
-                res.status(404).send('Terms of service page not found');
-            }
-        } catch (error) {
-            console.error('Error serving terms of service page:', error);
-            res.status(500).send('Internal Server Error');
-        }
-    } else {
-        // 在本地环境中使用文件系统
-        res.sendFile(path.join(__dirname, 'templates', 'terms-of-service.html'));
-    }
+    // 在所有环境中使用文件系统
+    res.sendFile(path.join(__dirname, 'templates', 'terms-of-service.html'));
 });
 
 // 处理缺失的图片
 app.get('/static/img/:imageName', async (req, res) => {
     const imageName = req.params.imageName;
 
-    if (isCloudflare) {
-        // 在Cloudflare环境中，使用KV存储获取图片
-        try {
-            // 尝试获取请求的图片
-            let content = await CHAT_ANALYSIS_STORAGE.get(`file:static/img/${imageName}`, { type: 'arrayBuffer' });
-
-            if (!content) {
-                // 如果请求的图片不存在，返回一个默认的占位图
-                content = await CHAT_ANALYSIS_STORAGE.get('file:static/img/placeholder.svg', { type: 'arrayBuffer' });
-            }
-
-            if (content) {
-                // 根据文件扩展名设置Content-Type
-                const ext = imageName.split('.').pop().toLowerCase();
-                const contentTypes = {
-                    'png': 'image/png',
-                    'jpg': 'image/jpeg',
-                    'jpeg': 'image/jpeg',
-                    'svg': 'image/svg+xml',
-                    'gif': 'image/gif',
-                    'webp': 'image/webp'
-                };
-
-                res.set('Content-Type', contentTypes[ext] || 'image/png');
-                res.send(Buffer.from(content));
-            } else {
-                res.status(404).send('Image not found');
-            }
-        } catch (error) {
-            console.error('Error serving image:', error);
-            res.status(500).send('Internal Server Error');
-        }
+    // 在所有环境中使用文件系统
+    const imagePath = path.join(__dirname, 'static', 'img', imageName);
+    if (!fs.existsSync(imagePath)) {
+        // 如果请求的图片不存在，返回一个默认的占位图
+        res.sendFile(path.join(__dirname, 'static', 'img', 'placeholder.svg'));
     } else {
-        // 在本地环境中使用文件系统
-        const imagePath = path.join(__dirname, 'static', 'img', imageName);
-        if (!fs.existsSync(imagePath)) {
-            // 如果请求的图片不存在，返回一个默认的占位图
-            res.sendFile(path.join(__dirname, 'static', 'img', 'placeholder.svg'));
-        } else {
-            res.sendFile(imagePath);
-        }
+        res.sendFile(imagePath);
     }
 });
 
@@ -785,7 +682,7 @@ app.use((req, res) => {
 });
 
 // 错误处理中间件
-app.use((err, req, res, _next) => {
+app.use((err, _req, res, _next) => {
     console.error('Server Error:', err.stack || err.message || err);
     res.status(500).send('Internal Server Error');
 });
