@@ -16,5 +16,11 @@
     "DEEPSEEK_MODEL": "deepseek-chat",
     "VERCEL": "true",
     "NODE_ENV": "production"
+  },
+  "functions": {
+    "index.js": {
+      "memory": 1024,
+      "maxDuration": 60
+    }
   }
 }

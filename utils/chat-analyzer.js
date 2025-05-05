@@ -19,20 +19,25 @@ async function analyzeChat(fileContent, outputPath) {
     try {
         console.log(`Starting chat content analysis`);
 
-        // 检查是否在Cloudflare环境中运行
+        // 检查是否在Cloudflare或Vercel环境中运行
         const isCloudflare = typeof process === 'undefined' || !process.version;
-        console.log('Running in Cloudflare environment:', isCloudflare);
+        const isVercel = process.env.VERCEL ? true : false;
+        console.log('Environment detection in chat-analyzer:');
+        console.log('- isCloudflare:', isCloudflare);
+        console.log('- isVercel:', isVercel);
 
         // 解析聊天文件
         let parseResult;
         let filePath = '';
 
-        if (!isCloudflare && typeof fileContent === 'string' && fs.existsSync(fileContent)) {
-            // 如果是文件路径（仅在非Cloudflare环境中）
+        if (!isCloudflare && !isVercel && typeof fileContent === 'string' && fs.existsSync(fileContent)) {
+            // 如果是文件路径（仅在本地环境中）
+            console.log('Processing file from path:', fileContent);
             filePath = fileContent;
             parseResult = fileParser.parseFile(fileContent);
         } else {
-            // 如果是文件内容或在Cloudflare环境中
+            // 如果是文件内容或在Cloudflare/Vercel环境中
+            console.log('Processing file from content (Serverless environment)');
             filePath = 'memory_file_' + Date.now();
             parseResult = fileParser.parseContent(fileContent);
         }
@@ -89,8 +94,7 @@ async function analyzeChat(fileContent, outputPath) {
             }];
         }
 
-        // 检查是否在Cloudflare环境中运行
-        const isCloudflare = typeof process === 'undefined' || !process.version;
+        // 使用之前定义的环境变量
 
         // 组合分析结果
         const result = {

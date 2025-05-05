@@ -215,15 +215,21 @@ async function generateSummary(messages, maxLength = 300) {
         // 检查是否配置了DeepSeek API密钥
         const apiKey = process.env.DEEPSEEK_API_KEY;
 
-        if (apiKey && apiKey !== 'your_deepseek_api_key_here') {
+        if (apiKey) {
             console.log('Using DeepSeek API to generate summary...');
-            return await deepseekApiService.generateSummaryWithDeepSeek(messages, maxLength);
+            try {
+                return await deepseekApiService.generateSummaryWithDeepSeek(messages, maxLength);
+            } catch (apiError) {
+                console.error('DeepSeek API summary generation failed:', apiError);
+                return `无法生成摘要: API调用失败 (${apiError.message})`;
+            }
         } else {
-            throw new Error('DeepSeek API key not configured. Unable to generate summary.');
+            console.error('DeepSeek API key not configured');
+            return `无法生成摘要: API密钥未配置`;
         }
     } catch (error) {
         console.error('Summary generation error:', error);
-        return `Failed to generate summary: ${error.message}`;
+        return `无法生成摘要: ${error.message}`;
     }
 }
 
@@ -241,18 +247,34 @@ async function extractEvents(messages, limit = 5) {
         // 检查是否配置了DeepSeek API密钥
         const apiKey = process.env.DEEPSEEK_API_KEY;
 
-        if (apiKey && apiKey !== 'your_deepseek_api_key_here') {
+        if (apiKey) {
             console.log('Using DeepSeek API to extract events...');
-            return await deepseekApiService.extractEventsWithDeepSeek(messages, limit);
+            try {
+                return await deepseekApiService.extractEventsWithDeepSeek(messages, limit);
+            } catch (apiError) {
+                console.error('DeepSeek API event extraction failed:', apiError);
+                return [{
+                    time: '',
+                    sender: 'System',
+                    content: `无法提取事件: API调用失败 (${apiError.message})`,
+                    type: 'Error'
+                }];
+            }
         } else {
-            throw new Error('DeepSeek API key not configured. Unable to extract events.');
+            console.error('DeepSeek API key not configured');
+            return [{
+                time: '',
+                sender: 'System',
+                content: '无法提取事件: API密钥未配置',
+                type: 'Error'
+            }];
         }
     } catch (error) {
         console.error('Event extraction error:', error);
         return [{
             time: '',
-            sender: 'Unknown',
-            content: `Failed to extract events: ${error.message}`,
+            sender: 'System',
+            content: `无法提取事件: ${error.message}`,
             type: 'Error'
         }];
     }
@@ -265,32 +287,15 @@ async function extractEvents(messages, limit = 5) {
  * @returns {Promise<Array>} 热点话题对象数组 [{ title, category, summary, keywords, messageCount }, ...]
  */
 async function analyzeHotTopics(messages, language = 'auto') {
-    // 导入DeepSeek API服务
-    const deepseekApiService = require('./deepseek-api-service');
-
-    try {
-        // 检查是否配置了DeepSeek API密钥
-        const apiKey = process.env.DEEPSEEK_API_KEY;
-
-        if (apiKey && apiKey !== 'your_deepseek_api_key_here') {
-            console.log('Using DeepSeek API to analyze hot topics...');
-            // 调用 deepseek-api-service 中的新函数
-            // 假设该函数返回所需格式的数组
-            return await deepseekApiService.analyzeTopicsWithDeepSeek(messages, language);
-        } else {
-            throw new Error('DeepSeek API key not configured. Unable to analyze hot topics.');
-        }
-    } catch (error) {
-        console.error('Hot topic analysis error:', error);
-        // 返回一个包含错误的占位符话题
-        return [{
-            title: "热点分析失败",
-            category: "错误",
-            summary: `无法分析热点话题: ${error.message}`,
-            keywords: [],
-            messageCount: 0 // 或标记为 N/A
-        }];
-    }
+    // 返回一个简单的占位符话题
+    // 由于当前不需要这个功能，我们简化它以避免不必要的API调用
+    return [{
+        title: "聊天主题",
+        category: "一般",
+        summary: "聊天记录的主要内容",
+        keywords: [],
+        messageCount: messages.length
+    }];
 }
 
 module.exports = {

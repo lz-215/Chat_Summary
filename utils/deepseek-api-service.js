@@ -173,14 +173,27 @@ ${messageContent}
         );
 
         // 使用Promise.race竞争，谁先完成就用谁的结果
+        console.log('Waiting for DeepSeek API response...');
         const response = await Promise.race([apiPromise, timeoutPromise]);
+        console.log('DeepSeek API response received');
 
         // 返回生成的摘要
         console.log('DeepSeek API summary generation successful');
         return response.data.choices[0].message.content.trim();
     } catch (error) {
         console.error('DeepSeek API summary generation error:', error.message);
-        throw error;
+
+        // 提供更详细的错误信息
+        if (error.response) {
+            console.error('Error status:', error.response.status);
+            console.error('Error data:', JSON.stringify(error.response.data, null, 2));
+            throw new Error(`API error (${error.response.status}): ${JSON.stringify(error.response.data)}`);
+        } else if (error.request) {
+            console.error('No response received:', error.request);
+            throw new Error('No response received from API');
+        } else {
+            throw error;
+        }
     }
 }
 
@@ -280,7 +293,9 @@ ${messageContent}
         );
 
         // 使用Promise.race竞争，谁先完成就用谁的结果
+        console.log('Waiting for DeepSeek API response for event extraction...');
         const response = await Promise.race([apiPromise, timeoutPromise]);
+        console.log('DeepSeek API response for event extraction received');
 
         // 解析返回的JSON
         console.log('DeepSeek API event extraction successful');
