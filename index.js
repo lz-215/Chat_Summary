@@ -1,12 +1,23 @@
 // 检查是否在Cloudflare或Vercel环境中运行
 const isCloudflare = typeof process === 'undefined' || !process.version;
-const isVercel = process.env.VERCEL === '1';
+const isVercel = process.env.VERCEL ? true : false;
+
+console.log('Environment detection:');
+console.log('- isCloudflare:', isCloudflare);
+console.log('- isVercel:', isVercel);
+console.log('- VERCEL env:', process.env.VERCEL);
 
 // 根据环境加载不同的模块
 let express, cors, morgan, path, fs, fileUpload, chatAnalyzer, visualizationService, htmlExportService, storage;
 
 // 在所有环境中加载基本模块
-require('dotenv').config({ path: './config/.env' });
+try {
+  require('dotenv').config({ path: './config/.env' });
+} catch (error) {
+  console.log('dotenv配置失败，可能在Serverless环境中运行:', error.message);
+}
+
+// 加载基本模块
 express = require('express');
 cors = require('cors');
 path = require('path');
@@ -14,6 +25,10 @@ chatAnalyzer = require('./utils/chat-analyzer');
 visualizationService = require('./utils/visualization-service');
 htmlExportService = require('./utils/html-export-service');
 storage = require('./utils/cloudflare-storage');
+
+// 打印环境变量
+console.log('DEEPSEEK_API_KEY:', process.env.DEEPSEEK_API_KEY ? `${process.env.DEEPSEEK_API_KEY.substring(0, 5)}...` : 'undefined');
+console.log('DEEPSEEK_MODEL:', process.env.DEEPSEEK_MODEL);
 
 if (isCloudflare) {
   // 在Cloudflare环境中
@@ -635,7 +650,7 @@ app.get('/api/export-html/:analysisId', async (req, res) => {
 });
 
 // 前端路由
-app.get('/', async (req, res) => {
+app.get('/', (req, res) => {
     // 在所有环境中使用文件系统
     res.sendFile(path.join(__dirname, 'templates', 'index.html'));
 });
@@ -644,25 +659,25 @@ app.get('/', async (req, res) => {
 
 
 
-app.get('/analysis', async (req, res) => {
+app.get('/analysis', (req, res) => {
     // 在所有环境中使用文件系统
     res.sendFile(path.join(__dirname, 'templates', 'analysis.html'));
 });
 
 // 删除upload路由，因为已经移除了upload.html
 
-app.get('/privacy-policy', async (req, res) => {
+app.get('/privacy-policy', (req, res) => {
     // 在所有环境中使用文件系统
     res.sendFile(path.join(__dirname, 'templates', 'privacy-policy.html'));
 });
 
-app.get('/terms-of-service', async (req, res) => {
+app.get('/terms-of-service', (req, res) => {
     // 在所有环境中使用文件系统
     res.sendFile(path.join(__dirname, 'templates', 'terms-of-service.html'));
 });
 
 // 处理缺失的图片
-app.get('/static/img/:imageName', async (req, res) => {
+app.get('/static/img/:imageName', (req, res) => {
     const imageName = req.params.imageName;
 
     // 在所有环境中使用文件系统

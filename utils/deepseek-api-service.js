@@ -4,14 +4,18 @@
  */
 
 const axios = require('axios');
-require('dotenv').config();
+try {
+  require('dotenv').config();
+} catch (error) {
+  console.log('dotenv配置失败，可能在Serverless环境中运行:', error.message);
+}
 
 // DeepSeek API配置
 const DEEPSEEK_API_URL = process.env.DEEPSEEK_API_URL || 'https://api.deepseek.com';
 const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY;
 
 // 默认模型配置
-const DEFAULT_MODEL = process.env.DEEPSEEK_MODEL || 'deepseek-r1';
+const DEFAULT_MODEL = process.env.DEEPSEEK_MODEL || 'deepseek-chat';
 
 // API可用性状态
 let apiAvailable = null; // null表示未检测，true表示可用，false表示不可用
@@ -29,6 +33,14 @@ async function isApiAvailable() {
     }
 
     const now = Date.now();
+
+    // 在Vercel环境中，假设API总是可用，避免不必要的测试请求
+    if (process.env.VERCEL) {
+        console.log('Running in Vercel environment, assuming API is available');
+        apiAvailable = true;
+        lastApiCheckTime = now;
+        return true;
+    }
 
     // 如果在过去5分钟内已经检测过，直接返回缓存的结果
     if (apiAvailable !== null && now - lastApiCheckTime < 5 * 60 * 1000) {
@@ -138,6 +150,7 @@ ${messageContent}
         });
 
         // 调用DeepSeek API
+        console.log('Calling DeepSeek API for summary generation...');
         const apiPromise = axios.post(
             `${DEEPSEEK_API_URL}/chat/completions`,
             {
@@ -163,6 +176,7 @@ ${messageContent}
         const response = await Promise.race([apiPromise, timeoutPromise]);
 
         // 返回生成的摘要
+        console.log('DeepSeek API summary generation successful');
         return response.data.choices[0].message.content.trim();
     } catch (error) {
         console.error('DeepSeek API summary generation error:', error.message);
@@ -243,6 +257,7 @@ ${messageContent}
         });
 
         // 调用DeepSeek API，启用JSON模式
+        console.log('Calling DeepSeek API for event extraction...');
         const apiPromise = axios.post(
             `${DEEPSEEK_API_URL}/chat/completions`,
             {
@@ -268,6 +283,7 @@ ${messageContent}
         const response = await Promise.race([apiPromise, timeoutPromise]);
 
         // 解析返回的JSON
+        console.log('DeepSeek API event extraction successful');
         const content = response.data.choices[0].message.content.trim();
         let events = [];
 

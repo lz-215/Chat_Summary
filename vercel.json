@@ -2,7 +2,8 @@
   "version": 2,
   "builds": [
     { "src": "index.js", "use": "@vercel/node" },
-    { "src": "templates/**", "use": "@vercel/static" }
+    { "src": "templates/**", "use": "@vercel/static" },
+    { "src": "static/**", "use": "@vercel/static" }
   ],
   "routes": [
     { "src": "/static/(.*)", "dest": "/static/$1" },
@@ -12,6 +13,8 @@
   ],
   "env": {
     "DEEPSEEK_API_KEY": "sk-902bac46d4f44d81a6089ff095401a6d",
-    "DEEPSEEK_MODEL": "deepseek-chat"
+    "DEEPSEEK_MODEL": "deepseek-chat",
+    "VERCEL": "true",
+    "NODE_ENV": "production"
   }
 }
