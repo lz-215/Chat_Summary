@@ -1,0 +1,119 @@
+{
+  "id": "1746424740340_2-3",
+  "timestamp": "2025-05-05T05:59:51.281Z",
+  "language": "unknown",
+  "metadata": {
+    "platform": "generic",
+    "title": "1746424740340_2-3.txt",
+    "exportDate": "2025-05-05T05:59:00.349Z",
+    "fileName": "1746424740340_2-3.txt",
+    "fileSize": 92169,
+    "messageCount": 1
+  },
+  "statistics": {
+    "totalMessages": 1,
+    "messageCountByParticipant": {},
+    "messageCountByDate": {},
+    "messageLengthStats": {
+      "average": 31289,
+      "max": 31289,
+      "min": 31289,
+      "total": 31289
+    },
+    "timeStats": {
+      "mostActiveHour": 0,
+      "messageCountByHour": {}
+    }
+  },
+  "top_keywords": {
+    "lv": 142,
+    "lv1": 46,
+    "ai": 46,
+    "lv2": 46,
+    "may": 30,
+    "https": 22,
+    "com": 21,
+    "revokemsg": 16,
+    "luke": 13,
+    "amp": 12,
+    "scys": 11,
+    "activity": 11,
+    "task": 9,
+    "detail": 9,
+    "number": 9,
+    "stage_id": 9,
+    "lucia": 9,
+    "lv3": 9,
+    "title": 8,
+    "description": 8
+  },
+  "sentiment": {
+    "overall": 0.018565400843881856,
+    "byParticipant": {}
+  },
+  "summary": "- 推荐创意灵感网站  \n- 客户退货建议拒绝处理  \n- 话题笔记提升互动数据  \n- 私信禁发网盘链接  \n- 账号权重无关粉丝数量",
+  "events": [
+    {
+      "time": "4月8日周二晚上",
+      "sender": "领队-金又又",
+      "content": "安排入局小红书电商的图文分享活动，主题为细化目标与保护心力",
+      "type": "会议安排"
+    },
+    {
+      "time": "",
+      "sender": "李蓬伟",
+      "content": "客户下单后申请退货问题求助",
+      "type": "关键问题"
+    },
+    {
+      "time": "",
+      "sender": "青屿-贵港-Lv1",
+      "content": "连续发商品笔记但数据差，询问是否应调整策略",
+      "type": "关键问题"
+    },
+    {
+      "time": "",
+      "sender": "教练-王多维",
+      "content": "指出小眼睛少主要因笔记质量问题，建议先优化内容",
+      "type": "重要决定"
+    },
+    {
+      "time": "",
+      "sender": "亮晶晶",
+      "content": "询问账号注销与保证金退还关联问题",
+      "type": "关键问题"
+    },
+    {
+      "time": "",
+      "sender": "教练-柚柚可乐",
+      "content": "建议自动发货后客户退货可拒绝，需提供截图证明",
+      "type": "任务分配"
+    },
+    {
+      "time": "航海最后一天",
+      "sender": "领队-金又又",
+      "content": "宣布航海结束并提醒申请保证金退款",
+      "type": "截止日期"
+    },
+    {
+      "time": "",
+      "sender": "教练-巧克力",
+      "content": "分享新号起号7天变现576元的实战经验",
+      "type": "策略指导"
+    },
+    {
+      "time": "",
+      "sender": "晓麒",
+      "content": "店铺账号封禁后申诉成功率低的问题",
+      "type": "关键问题"
+    },
+    {
+      "time": "",
+      "sender": "风生_",
+      "content": "公文写作类商品被下架，涉及敏感词违规",
+      "type": "关键问题"
+    }
+  ],
+  "total_messages": 1,
+  "senders": {}
+}

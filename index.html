@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Analyzer - Visualize and Understand Your Chat History</title>
+    <meta name="description" content="Transform your chat conversations into meaningful insights with AI-powered analysis, interactive visualizations, and comprehensive statistics. Privacy-focused and secure.">
+    <meta name="keywords" content="chat analysis, chat visualization, message statistics, conversation insights, chat data, chat history, AI analysis, communication patterns">
+    <meta name="author" content="Chat Analyzer Team">
+    <meta name="robots" content="index, follow">
+    <style>
+        /* Main CSS */
+        :root {
+            --primary-color: #07c160;
+            --secondary-color: #1aad19;
+            --text-color: #333;
+            --light-gray: #f5f5f5;
+            --border-color: #e0e0e0;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #fff;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        header {
+            background-color: #fff;
+            box-shadow: var(--shadow);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo h1 {
+            color: var(--primary-color);
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 20px;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        .nav-links a.active,
+        .nav-links a:hover {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        section {
+            margin-bottom: 60px;
+        }
+
+        h1, h2, h3 {
+            color: var(--text-color);
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 16px;
+        }
+
+        .btn.primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn.primary:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .btn.primary:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .btn.outline {
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            background-color: transparent;
+        }
+
+        .btn.outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        footer {
+            background-color: var(--light-gray);
+            padding: 40px 0 20px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 10px;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 30px auto 0;
+            padding: 20px 20px 0;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .footer-links {
+            margin: 15px 0;
+        }
+
+        .footer-links a {
+            color: #666;
+            margin: 0 10px;
+        }
+
+        .separator {
+            color: #ccc;
+        }
+
+        .disclaimer {
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* Home Upload CSS */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            margin: 40px 0 60px;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #666;
+        }
+
+        .hero-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .upload-container {
+            background-color: var(--light-gray);
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .file-upload {
+            border: 2px dashed var(--border-color);
+            border-radius: 5px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload:hover {
+            border-color: var(--primary-color);
+        }
+
+        .file-upload label {
+            display: block;
+            cursor: pointer;
+        }
+
+        .upload-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .file-upload input[type="file"] {
+            display: none;
+        }
+
+        .file-name {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: var(--primary-color);
+            min-height: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .supported-formats {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .format-badges {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .format-badge {
+            background-color: #e8f5e9;
+            color: var(--primary-color);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .features {
+            padding: 40px 0;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .how-it-works {
+            padding: 40px 0;
+            background-color: var(--light-gray);
+            border-radius: 10px;
+            margin: 40px 0;
+        }
+
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 250px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            background-color: var(--primary-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            margin: 0 auto 20px;
+        }
+
+        .step h3 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        /* Loading animation */
+        .loading-message {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .progress-bar {
+            width: 300px;
+            height: 10px;
+            background-color: #f3f3f3;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: var(--primary-color);
+            width: 0%;
+        }
+
+        @keyframes progress-animation {
+            0% { width: 0%; }
+            100% { width: 90%; }
+        }
+
+        .status {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+            }
+
+            .hero-image {
+                order: -1;
+            }
+
+            .steps {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Chat Analyzer</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#features">Features</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Understand Your Conversations</h1>
+                <p>Upload your chat records and get intelligent summaries, statistics, and visualizations</p>
+
+                <div class="upload-container">
+                    <form id="chat-upload-form" enctype="multipart/form-data">
+                        <div class="file-upload">
+                            <label for="chat-file">
+                                <div class="upload-icon">📤</div>
+                                <span>Choose file or drag here</span>
+                            </label>
+                            <input type="file" id="chat-file" name="file" accept=".html,.htm,.txt">
+                        </div>
+                        <div id="file-name" class="file-name"></div>
+
+                        <div class="button-container">
+                            <button type="button" id="analyze-button" class="btn primary" disabled>Analyze Chat</button>
+                            <a href="#features" class="btn outline">Learn More</a>
+                        </div>
+                    </form>
+
+                    <div class="supported-formats">
+                        <div class="format-badges">
+                            <span class="format-badge">HTML</span>
+                            <span class="format-badge">TXT</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://cdn-icons-png.flaticon.com/512/1041/1041916.png" alt="Chat analysis illustration">
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <h2>Key Features</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Comprehensive Statistics</h3>
+                    <p>Get detailed metrics on message frequency, response times, and conversation patterns</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h3>Intelligent Summaries</h3>
+                    <p>AI-powered summaries of your conversations, highlighting key topics and events</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Visual Insights</h3>
+                    <p>Beautiful charts and graphs to visualize your communication patterns over time</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Privacy First</h3>
+                    <p>Your data never leaves your device - all processing happens locally</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Mobile Friendly</h3>
+                    <p>Access your analysis from any device with our responsive design</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Regular Updates</h3>
+                    <p>We continuously improve our analysis algorithms to provide better insights</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="how-it-works">
+            <h2>How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Upload File</h3>
+                    <p>Upload your chat history file (HTML or TXT format) directly on this page</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Automatic Analysis</h3>
+                    <p>Our system automatically analyzes your conversations using advanced AI techniques</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>View Results</h3>
+                    <p>Explore interactive visualizations and summaries of your chat history</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Chat Analyzer</h3>
+                <p>Analyze and visualize your chat records with advanced AI</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: ytsgabcde13#2925.com, replace # with @ to get the email.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023-2024 Chat Analyzer. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <span class="separator">|</span>
+                <a href="#">Terms of Service</a>
+                <span class="separator">|</span>
+                <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">ICP License: 渝ICP备2024032264号-66</a>
+            </div>
+            <p class="disclaimer">Chat Analyzer is not affiliated with or endorsed by any chat platform. All product names, logos, and brands are property of their respective owners.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Home page upload functionality for Chat Analyzer
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM elements
+            const chatUploadForm = document.getElementById('chat-upload-form');
+            const chatFile = document.getElementById('chat-file');
+            const fileName = document.getElementById('file-name');
+            const analyzeButton = document.getElementById('analyze-button');
+
+            // State variables
+            let uploadedFile = null;
+
+            // File upload handler
+            if (chatFile) {
+                chatFile.addEventListener('change', function() {
+                    if (this.files.length > 0) {
+                        uploadedFile = this.files[0];
+                        fileName.textContent = uploadedFile.name;
+
+                        // Enable analyze button
+                        analyzeButton.disabled = false;
+                    } else {
+                        fileName.textContent = '';
+                        uploadedFile = null;
+                        analyzeButton.disabled = true;
+                    }
+                });
+            }
+
+            // Analyze button handler
+            if (analyzeButton) {
+                analyzeButton.addEventListener('click', function() {
+                    if (!uploadedFile) {
+                        showError('Please select a chat file to upload');
+                        return;
+                    }
+
+                    // Show loading state
+                    analyzeButton.disabled = true;
+                    analyzeButton.textContent = 'Analyzing...';
+
+                    // Display loading message with progress bar
+                    const loadingMessage = document.createElement('div');
+                    loadingMessage.className = 'loading-message';
+                    loadingMessage.innerHTML = `
+                        <div class="spinner"></div>
+                        <p>Analyzing chat records, please wait...</p>
+                        <div class="progress-bar">
+                            <div class="progress" id="analysis-progress"></div>
+                        </div>
+                        <div class="status" id="analysis-status">Processing file...</div>
+                    `;
+                    document.body.appendChild(loadingMessage);
+
+                    // Start progress animation
+                    const progressBar = document.getElementById('analysis-progress');
+                    progressBar.style.animation = 'progress-animation 5s linear forwards';
+
+                    // Update status messages
+                    const statusElement = document.getElementById('analysis-status');
+                    let currentStep = 0;
+                    const statusMessages = [
+                        'Processing file...',
+                        'Analyzing content...',
+                        'Generating summary...',
+                        'Preparing results...'
+                    ];
+
+                    // Update status message every 1 second
+                    const statusInterval = setInterval(() => {
+                        currentStep = (currentStep + 1) % statusMessages.length;
+                        statusElement.textContent = statusMessages[currentStep];
+                    }, 1000);
+
+                    // Simulate analysis process (since we're not using a server)
+                    setTimeout(() => {
+                        // Clear the status update interval
+                        clearInterval(statusInterval);
+                        
+                        // Remove loading message
+                        document.body.removeChild(loadingMessage);
+                        
+                        // Reset button
+                        analyzeButton.disabled = false;
+                        analyzeButton.textContent = 'Analyze Chat';
+                        
+                        // Open analysis.html with demo data
+                        window.open('analysis.html?demo=true', '_blank');
+                    }, 5000);
+                });
+            }
+
+            // Show error message
+            function showError(message) {
+                alert(message);
+            }
+        });
+    </script>
+</body>
+</html>

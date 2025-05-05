@@ -1,0 +1,77 @@
+{
+  "id": "1746408673910_english-chat-txt",
+  "timestamp": "2025-05-05T01:31:13.987Z",
+  "language": "zh",
+  "metadata": {
+    "platform": "generic",
+    "title": "1746408673910_english-chat-txt.txt",
+    "exportDate": "2025-05-05T01:31:13.924Z",
+    "fileName": "1746408673910_english-chat-txt.txt",
+    "fileSize": 11960,
+    "messageCount": 4
+  },
+  "statistics": {
+    "totalMessages": 4,
+    "messageCountByParticipant": {
+      "Time Range": 1,
+      "[Screen sharing": 1,
+      "@everyone I've sent the updated requirements document to your emails. Key changes": 1
+    },
+    "messageCountByDate": {},
+    "messageLengthStats": {
+      "average": 2588.25,
+      "max": 6581,
+      "min": 45,
+      "total": 10353
+    },
+    "timeStats": {
+      "mostActiveHour": 0,
+      "messageCountByHour": {}
+    }
+  },
+  "top_keywords": {
+    "e ": 254,
+    " t": 152,
+    "er": 152,
+    "re": 148,
+    "on": 144,
+    "s ": 142,
+    "n ": 137,
+    "he": 123,
+    "d ": 122,
+    "es": 116,
+    "t ": 113,
+    " a": 111,
+    "in": 106,
+    "en": 105,
+    "th": 96,
+    "ti": 96,
+    "te": 93,
+    "ar": 91,
+    "at": 87,
+    "ro": 85
+  },
+  "sentiment": {
+    "overall": 0,
+    "byParticipant": {
+      "Time Range": 0,
+      "[Screen sharing": 0,
+      "@everyone I've sent the updated requirements document to your emails. Key changes": 0
+    }
+  },
+  "summary": "Failed to generate summary: DeepSeek API is not available",
+  "events": [
+    {
+      "time": "",
+      "sender": "Unknown",
+      "content": "Failed to extract events: DeepSeek API is not available",
+      "type": "Error"
+    }
+  ],
+  "total_messages": 4,
+  "senders": {
+    "Time Range": 1,
+    "[Screen sharing": 1,
+    "@everyone I've sent the updated requirements document to your emails. Key changes": 1
+  }
+}

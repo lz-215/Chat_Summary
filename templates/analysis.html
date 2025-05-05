@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Analysis - Chat Analyzer</title>
+    <meta name="description" content="View detailed analysis and visualizations of your chat conversations with interactive charts and insights.">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/analysis.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Visualization libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts-wordcloud@2.1.0/dist/echarts-wordcloud.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.8.5/dist/d3.min.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Chat Analyzer</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/faq">FAQ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="analysis-container">
+        <div class="analysis-header">
+            <h1>Chat Analysis</h1>
+            <div class="action-buttons">
+                <button id="export-btn"><i class="fas fa-download"></i> Export Visual Report</button>
+                <button id="share-btn"><i class="fas fa-share-alt"></i> Share</button>
+            </div>
+        </div>
+
+        <div class="tab-content active" id="summary-content" style="display: block;">
+            <div class="summary-section">
+                <h2><i class="fas fa-align-left"></i> Summary</h2>
+                <div class="summary-text loading-placeholder">
+                    Loading summary...
+                </div>
+                <div class="content-loaded" style="display: none;">
+                    <!-- Content will be loaded via JavaScript -->
+                </div>
+            </div>
+
+            <div class="events-section">
+                <h2><i class="fas fa-calendar-check"></i> Key Events</h2>
+                <div class="events-list loading-placeholder">
+                    Loading events...
+                </div>
+                <div class="content-loaded" style="display: none;">
+                    <!-- Events will be loaded via JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="statistics-content" style="display: none;">
+            <div class="statistics-section">
+                <h2><i class="fas fa-chart-bar"></i> Message Statistics</h2>
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <h3>Messages by Participant</h3>
+                        <div id="participants-chart" class="loading-placeholder">Loading chart...</div>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Messages by Time of Day</h3>
+                        <div id="time-chart" class="loading-placeholder">Loading chart...</div>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Messages by Day of Week</h3>
+                        <div id="weekday-chart" class="loading-placeholder">Loading chart...</div>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Message Types</h3>
+                        <div id="types-chart" class="loading-placeholder">Loading chart...</div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-fire"></i> Activity Patterns</h2>
+                <div class="charts-grid">
+                    <div class="chart-container large">
+                        <h3>Activity Heatmap</h3>
+                        <div id="activity-heatmap" class="loading-placeholder">Loading heatmap...</div>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Message Length Distribution</h3>
+                        <div id="message-length-chart" class="loading-placeholder">Loading chart...</div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-project-diagram"></i> Interaction Analysis</h2>
+                <div class="charts-grid">
+                    <div class="chart-container large">
+                        <h3>Interaction Network</h3>
+                        <div id="interaction-network" class="loading-placeholder">Loading network...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="topics-content" style="display: none;">
+            <div class="topics-section">
+                <h2><i class="fas fa-tags"></i> Topics & Keywords</h2>
+                <div class="topics-overview loading-placeholder">
+                    Loading topics...
+                </div>
+                <div class="content-loaded" style="display: none;">
+                    <!-- Topics will be loaded via JavaScript -->
+                </div>
+                <div class="word-cloud-container">
+                    <h3>Keyword Cloud</h3>
+                    <div id="word-cloud" class="loading-placeholder">Loading word cloud...</div>
+                </div>
+                <div class="topics-charts">
+                    <div class="chart-container">
+                        <h3>Top Keywords</h3>
+                        <div id="keywords-chart" class="loading-placeholder">Loading chart...</div>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Topic Distribution</h3>
+                        <div id="topics-distribution" class="loading-placeholder">Loading chart...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="sentiment-content" style="display: none;">
+            <div class="sentiment-section">
+                <h2><i class="fas fa-heart"></i> Sentiment Analysis</h2>
+                <div class="sentiment-overview">
+                    <div class="sentiment-score">
+                        <h3>Overall Sentiment Score</h3>
+                        <div class="score-display">
+                            <div class="score-value loading-placeholder">0.0</div>
+                            <div class="score-meter">
+                                <div class="meter-marker negative">-1.0</div>
+                                <div class="meter-marker neutral">0.0</div>
+                                <div class="meter-marker positive">+1.0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sentiment-charts">
+                    <div class="chart-container">
+                        <h3>Sentiment Over Time</h3>
+                        <div id="sentiment-timeline" class="loading-placeholder">Loading chart...</div>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Sentiment by Participant</h3>
+                        <div id="sentiment-participants" class="loading-placeholder">Loading chart...</div>
+                    </div>
+                </div>
+                <div class="sentiment-examples">
+                    <h3>Example Messages</h3>
+                    <div class="examples-container loading-placeholder">
+                        Loading examples...
+                    </div>
+                    <div class="content-loaded" style="display: none;">
+                        <!-- Examples will be loaded via JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="timeline-content" style="display: none;">
+            <div class="timeline-section">
+                <h2><i class="fas fa-history"></i> Message Timeline</h2>
+                <div class="timeline-tools">
+                    <div class="search-container">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="timeline-search" placeholder="Search messages...">
+                    </div>
+                </div>
+                <div class="timeline loading-placeholder">
+                    Loading timeline...
+                </div>
+                <div class="content-loaded" style="display: none;">
+                    <!-- Timeline will be loaded via JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Chat Analyzer</h3>
+                <p>Analyze and visualize your chat records with advanced AI</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/faq">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: ytsgabcde13#2925.com, replace # with @ to get the email.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Chat Analyzer. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="/privacy-policy">Privacy Policy</a>
+                <span class="separator">|</span>
+                <a href="/terms-of-service">Terms of Service</a>
+                <span class="separator">|</span>
+                <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">ICP License: 渝ICP备2024032264号-66</a>
+            </div>
+            <p class="disclaimer">Chat Analyzer is not affiliated with or endorsed by any chat platform. All product names, logos, and brands are property of their respective owners.</p>
+        </div>
+    </footer>
+
+    <script src="/static/js/analysis.js"></script>
+</body>
+</html>

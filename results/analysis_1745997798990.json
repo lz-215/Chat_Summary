@@ -1,0 +1,110 @@
+{
+  "id": "1745997798990_test-chat",
+  "timestamp": "2025-04-30T07:23:29.652Z",
+  "language": "unknown",
+  "metadata": {
+    "platform": "generic",
+    "title": "1745997798990_test-chat.txt",
+    "exportDate": "2025-04-30T07:23:19.022Z",
+    "fileName": "1745997798990_test-chat.txt",
+    "fileSize": 918,
+    "messageCount": 12
+  },
+  "statistics": {
+    "totalMessages": 12,
+    "messageCountByParticipant": {
+      "张三": 5,
+      "李四": 4,
+      "王五": 3
+    },
+    "messageCountByDate": {},
+    "messageLengthStats": {
+      "average": 16,
+      "max": 23,
+      "min": 10,
+      "total": 192
+    },
+    "timeStats": {
+      "mostActiveHour": 0,
+      "messageCountByHour": {}
+    }
+  },
+  "top_keywords": {},
+  "sentiment": {
+    "overall": null,
+    "byParticipant": {
+      "张三": null,
+      "李四": null,
+      "王五": null
+    }
+  },
+  "summary": "## 会话摘要\n这是一个关于会议的对话。\n\n## 关键讨论点\n- 大家好，我们明天下午2点有个会议，请准时参加。\n- 好的，会议地点在哪里？\n- 在三楼会议室，主要讨论项目进度。\n- 好的，如果有问题我们可以随时沟通。\n- 非常好，期待明天的会议！\n",
+  "events": [
+    {
+      "time": "",
+      "sender": "张三",
+      "content": "大家好，我们明天下午2点有个会议，请准时参加。",
+      "type": "自动检测"
+    },
+    {
+      "time": "",
+      "sender": "李四",
+      "content": "对了，周五之前我们需要提交最终方案吗？",
+      "type": "自动检测"
+    },
+    {
+      "time": "",
+      "sender": "张三",
+      "content": "在三楼会议室，主要讨论项目进度。",
+      "type": "自动检测"
+    },
+    {
+      "time": "",
+      "sender": "张三",
+      "content": "非常好，期待明天的会议！",
+      "type": "自动检测"
+    },
+    {
+      "time": "",
+      "sender": "王五",
+      "content": "我可能会晚到10分钟，有点事情要处理。",
+      "type": "自动检测"
+    },
+    {
+      "time": "",
+      "sender": "张三",
+      "content": "是的，周五是截止日期，请大家抓紧时间。",
+      "type": "自动检测"
+    },
+    {
+      "time": "",
+      "sender": "李四",
+      "content": "没问题，我会提前准备一下材料。",
+      "type": "自动检测"
+    },
+    {
+      "time": "",
+      "sender": "王五",
+      "content": "明白了，我会尽快完成我的部分。",
+      "type": "自动检测"
+    },
+    {
+      "time": "",
+      "sender": "李四",
+      "content": "好的，会议地点在哪里？",
+      "type": "自动检测"
+    },
+    {
+      "time": "",
+      "sender": "王五",
+      "content": "收到，我会准备好的。",
+      "type": "自动检测"
+    }
+  ],
+  "total_messages": 12,
+  "senders": {
+    "张三": 5,
+    "李四": 4,
+    "王五": 3
+  }
+}

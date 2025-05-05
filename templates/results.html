@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeChat Analysis Results - WeChat Analyzer</title>
+    <meta name="description" content="View detailed analysis and visualizations of your WeChat conversations with interactive charts and insights.">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/results.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Optional: Add Chart.js for visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="results-container">
+        <header>
+            <h1>WeChat Chat Analysis</h1>
+            <div class="action-buttons">
+                <button id="export-btn"><i class="fas fa-download"></i> Export</button>
+                <button id="share-btn"><i class="fas fa-share-alt"></i> Share</button>
+            </div>
+        </header>
+
+        <div class="meta-info">
+            <div class="meta-item">
+                <span class="label">Chat Name:</span>
+                <span id="chat-name" class="value loading-placeholder"></span>
+            </div>
+            <div class="meta-item">
+                <span class="label">Participants:</span>
+                <span id="participants" class="value loading-placeholder"></span>
+            </div>
+            <div class="meta-item">
+                <span class="label">Date Range:</span>
+                <span id="date-range" class="value loading-placeholder"></span>
+            </div>
+            <div class="meta-item">
+                <span class="label">Messages:</span>
+                <span id="messages-count" class="value loading-placeholder"></span>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button" id="summary-tab" data-target="summary-content">
+                <i class="fas fa-chart-bar"></i> Summary
+            </button>
+            <button class="tab-button" id="topics-tab" data-target="topics-content">
+                <i class="fas fa-comments"></i> Topics
+            </button>
+            <button class="tab-button" id="sentiment-tab" data-target="sentiment-content">
+                <i class="fas fa-smile"></i> Sentiment
+            </button>
+            <button class="tab-button" id="timeline-tab" data-target="timeline-content">
+                <i class="fas fa-history"></i> Timeline
+            </button>
+        </div>
+
+        <div class="tab-content" id="summary-content">
+            <div class="statistics-cards">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-comment"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-label">Total Messages</div>
+                        <div id="total-messages" class="stat-value loading-placeholder">0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-users"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-label">Participants</div>
+                        <div id="total-participants" class="stat-value loading-placeholder">0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-label">Active Days</div>
+                        <div id="active-days" class="stat-value loading-placeholder">0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-label">Avg. Messages/Day</div>
+                        <div id="avg-messages" class="stat-value loading-placeholder">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="summary-section">
+                <h2><i class="fas fa-align-left"></i> Summary</h2>
+                <div class="summary-text loading-placeholder">
+                    Loading summary...
+                </div>
+                <div class="content-loaded" style="display: none;">
+                    <!-- Content will be loaded via JavaScript -->
+                </div>
+            </div>
+
+            <div class="activity-section">
+                <h2><i class="fas fa-chart-line"></i> Activity Over Time</h2>
+                <div id="activity-chart" class="chart-container loading-placeholder">
+                    Loading chart...
+                </div>
+            </div>
+
+            <div class="events-section">
+                <h2><i class="fas fa-calendar-check"></i> Key Events</h2>
+                <div class="events-list loading-placeholder">
+                    Loading events...
+                </div>
+                <div class="content-loaded" style="display: none;">
+                    <!-- Events will be loaded via JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="topics-content">
+            <div class="topics-section">
+                <h2><i class="fas fa-tags"></i> Discussion Topics</h2>
+                <p>The following topics were identified in your chat:</p>
+                <div class="topics-list loading-placeholder">
+                    Loading topics...
+                </div>
+                <div class="content-loaded" style="display: none;">
+                    <!-- Topics will be loaded via JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="sentiment-content">
+            <div class="sentiment-section">
+                <h2><i class="fas fa-heart"></i> Sentiment Analysis</h2>
+                <div class="sentiment-overview">
+                    <div class="sentiment-score">
+                        <h3>Overall Sentiment Score</h3>
+                        <div class="score-display">
+                            <div class="score-value loading-placeholder">0.0</div>
+                            <div class="score-meter">
+                                <div class="meter-marker negative">-1.0</div>
+                                <div class="meter-marker neutral">0.0</div>
+                                <div class="meter-marker positive">+1.0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sentiment-highlights">
+                    <div class="highlights-section">
+                        <h3><i class="fas fa-smile"></i> Positive Highlights</h3>
+                        <div class="positive-highlights loading-placeholder">
+                            Loading positive highlights...
+                        </div>
+                        <div class="content-loaded" style="display: none;">
+                            <!-- Positive highlights will be loaded via JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="highlights-section">
+                        <h3><i class="fas fa-frown"></i> Negative Highlights</h3>
+                        <div class="negative-highlights loading-placeholder">
+                            Loading negative highlights...
+                        </div>
+                        <div class="content-loaded" style="display: none;">
+                            <!-- Negative highlights will be loaded via JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="timeline-content">
+            <div class="timeline-section">
+                <h2><i class="fas fa-history"></i> Message Timeline</h2>
+                <div class="timeline-tools">
+                    <div class="search-container">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="timeline-search" placeholder="Search messages...">
+                    </div>
+                </div>
+                <div class="timeline loading-placeholder">
+                    Loading timeline...
+                </div>
+                <div class="content-loaded" style="display: none;">
+                    <!-- Timeline will be loaded via JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>WeChat Analyzer</h3>
+                <p>Analyze and visualize your WeChat chat records with advanced AI</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/upload">Upload</a></li>
+                    <li><a href="/faq">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: ytsgabcde13#2925.com, replace # with @ to get the email.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023-2024 WeChat Analyzer. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="/privacy-policy">Privacy Policy</a>
+                <span class="separator">|</span>
+                <a href="/terms-of-service">Terms of Service</a>
+                <span class="separator">|</span>
+                <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">ICP License: 渝ICP备2024032264号-66</a>
+            </div>
+            <p class="disclaimer">WeChat Analyzer is not affiliated with or endorsed by Tencent or WeChat. All product names, logos, and brands are property of their respective owners.</p>
+        </div>
+    </footer>
+
+    <script src="/static/js/results.js"></script>
+</body>
+</html>

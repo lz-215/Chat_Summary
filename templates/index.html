@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Analyzer - Visualize and Understand Your Chat History</title>
+    <meta name="description" content="Transform your chat conversations into meaningful insights with AI-powered analysis, interactive visualizations, and comprehensive statistics. Privacy-focused and secure.">
+    <meta name="keywords" content="chat analysis, chat visualization, message statistics, conversation insights, chat data, chat history, AI analysis, communication patterns">
+    <meta name="author" content="Chat Analyzer Team">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.wechatanalyzer.com/">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/home-upload.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>Chat Analyzer</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/" class="active">Home</a></li>
+                <li><a href="/faq">FAQ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Understand Your Conversations</h1>
+                <p>Upload your chat records and get intelligent summaries, statistics, and visualizations</p>
+
+                <div class="upload-container">
+                    <form id="chat-upload-form" enctype="multipart/form-data">
+                        <div class="file-upload">
+                            <label for="chat-file">
+                                <div class="upload-icon">📤</div>
+                                <span>Choose file or drag here</span>
+                            </label>
+                            <input type="file" id="chat-file" name="file" accept=".txt">
+                        </div>
+                        <div id="file-name" class="file-name"></div>
+
+
+
+                        <div class="button-container">
+                            <button type="button" id="analyze-button" class="btn primary" disabled>Analyze Chat</button>
+                            <a href="#features" class="btn outline">Learn More</a>
+                        </div>
+                    </form>
+
+                    <div class="supported-formats">
+                        <div class="format-badges">
+                            <span class="format-badge">TXT</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="/static/img/chat-analysis.svg" alt="Chat analysis illustration">
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <h2>Key Features</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Comprehensive Statistics</h3>
+                    <p>Get detailed metrics on message frequency, response times, and conversation patterns</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h3>Intelligent Summaries</h3>
+                    <p>AI-powered summaries of your conversations, highlighting key topics and events</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Visual Insights</h3>
+                    <p>Beautiful charts and graphs to visualize your communication patterns over time</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Privacy First</h3>
+                    <p>Your data never leaves your device - all processing happens locally</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Mobile Friendly</h3>
+                    <p>Access your analysis from any device with our responsive design</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Regular Updates</h3>
+                    <p>We continuously improve our analysis algorithms to provide better insights</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="how-it-works">
+            <h2>How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Upload File</h3>
+                    <p>Upload your chat history file (TXT format) directly on this page</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Automatic Analysis</h3>
+                    <p>Our system automatically analyzes your conversations using advanced AI techniques</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>View Results</h3>
+                    <p>Explore interactive visualizations and summaries of your chat history</p>
+                </div>
+            </div>
+        </section>
+
+
+
+
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Chat Analyzer</h3>
+                <p>Analyze and visualize your chat records with advanced AI</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/faq">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: ytsgabcde13#2925.com, replace # with @ to get the email.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Chat Analyzer. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="/privacy-policy">Privacy Policy</a>
+                <span class="separator">|</span>
+                <a href="/terms-of-service">Terms of Service</a>
+                <span class="separator">|</span>
+                <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">ICP License: 渝ICP备2024032264号-66</a>
+            </div>
+            <p class="disclaimer">Chat Analyzer is not affiliated with or endorsed by any chat platform. All product names, logos, and brands are property of their respective owners.</p>
+        </div>
+    </footer>
+
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/home-upload.js"></script>
+</body>
+</html>

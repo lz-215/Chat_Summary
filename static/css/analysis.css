@@ -1,0 +1,651 @@
+/* Analysis page styles - Aligned with main.css (Light Theme) */
+
+/* Import variables from main.css or redefine them here */
+:root {
+    --primary-color: #07c160;
+    --secondary-color: #1aad19;
+    --text-color: #333;
+    --light-gray: #f5f5f5;
+    --border-color: #e0e0e0;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --white-color: #ffffff;
+    --body-bg-color: #f9f9f9;
+    --card-bg-color: var(--white-color);
+    --link-color: var(--primary-color);
+    --text-muted-color: #666;
+    --positive-color: #4caf50; /* Added from results.css */
+    --negative-color: #f44336; /* Added from results.css */
+    --neutral-color: #9e9e9e;  /* Added from results.css */
+}
+
+/* Basic Styling - Inherit from main.css or reset slightly */
+body {
+    background-color: var(--body-bg-color);
+    color: var(--text-color);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Use button styles from main.css - Assuming .btn.primary exists */
+#export-btn {
+    /* Apply styles similar to .btn.primary from main.css */
+    padding: 8px 15px; /* Adjusted padding */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 14px; /* Slightly smaller */
+    transition: all 0.2s ease;
+    display: inline-block;
+    text-align: center;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+
+#export-btn i {
+    margin-right: 5px;
+}
+
+#export-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Report Header - Align with main.css header */
+.report-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px; /* Match nav padding */
+    background-color: var(--white-color);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 2px 4px var(--shadow-color);
+    max-width: 1200px; /* Match nav width */
+    margin: 0 auto; /* Center header content */
+}
+
+.report-header .logo h1 {
+    margin: 0;
+    font-size: 24px; /* Match logo h1 */
+    color: var(--primary-color);
+}
+
+.report-header .report-date-info {
+    margin: 3px 0 0;
+    font-size: 0.85em;
+    color: var(--text-muted-color);
+}
+
+.report-header nav {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.report-header nav a {
+    padding: 8px 12px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-radius: 4px;
+    color: var(--primary-color);
+}
+
+.report-header nav a:hover {
+    background-color: rgba(7, 193, 96, 0.1);
+    text-decoration: none;
+}
+
+/* Report Container - Align with main.css main */
+.report-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Stats Overview Section */
+.stats-overview {
+    display: grid; /* Use grid for better responsiveness */
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+    background-color: transparent; /* Remove dark background */
+    padding: 0; /* Remove extra padding */
+    border-radius: 0;
+}
+
+.stat-card {
+    background-color: var(--card-bg-color);
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+.stat-card h3 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-size: 0.95em;
+    color: var(--text-muted-color);
+    font-weight: 500;
+}
+
+.stat-card p {
+    margin: 0;
+    font-size: 1.8em;
+    font-weight: 600; /* Slightly bolder */
+    color: var(--primary-color);
+}
+
+/* NEW: Overall Summary Section Styles */
+.overall-summary-section {
+    margin-bottom: 40px; /* Space before hotspots */
+}
+
+.overall-summary-section h2 {
+    font-size: 1.6em; /* Slightly smaller than hotspots title */
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px;
+}
+
+.summary-content-box {
+    background-color: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px 25px;
+    font-size: 1em;
+    line-height: 1.7;
+    color: var(--text-color);
+    box-shadow: 0 1px 4px var(--shadow-color);
+}
+
+.summary-content-box p {
+    margin: 0;
+}
+/* END NEW */
+
+/* Hotspots Section */
+.hotspots-section h2 {
+    font-size: 1.8em; /* Slightly larger */
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 8px;
+    display: inline-block;
+}
+
+.hotspots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+/* Hotspot Card Styling - Align with main.css cards */
+.hotspot-card {
+    background-color: var(--card-bg-color);
+    border-radius: 8px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 8px var(--shadow-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hotspot-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+}
+
+.hotspot-header {
+    margin-bottom: 15px;
+}
+
+.hotspot-category {
+    display: inline-block;
+    background-color: rgba(7, 193, 96, 0.1); /* Lighter primary background */
+    color: var(--primary-color);
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.85em;
+    font-weight: 600; /* Bolder */
+    margin-bottom: 12px;
+}
+
+.hotspot-title {
+    margin: 0;
+    font-size: 1.25em;
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.hotspot-summary {
+    margin-bottom: 20px;
+    flex-grow: 1;
+    color: var(--text-muted-color);
+    font-size: 0.95em;
+}
+
+.hotspot-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-top: 1px solid var(--border-color);
+    padding-top: 15px;
+    margin-top: auto;
+}
+
+.hotspot-keywords span {
+    display: inline-block;
+    background-color: var(--light-gray);
+    color: var(--text-muted-color);
+    padding: 4px 10px;
+    border-radius: 15px; /* Pill shape */
+    font-size: 0.8em;
+    margin-right: 6px;
+    margin-bottom: 6px;
+}
+
+.hotspot-frequency {
+    font-size: 0.9em;
+    color: var(--text-muted-color);
+    white-space: nowrap;
+    margin-left: 10px;
+}
+
+/* Report Footer - Align with main.css footer */
+.report-footer {
+    max-width: 1200px;
+    margin: 40px auto 0;
+    padding: 20px 20px;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+    font-size: 14px;
+    color: #999;
+}
+
+/* Remove conflicting old dark theme styles if any were missed */
+
+/* Container */
+.analysis-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+/* Header (Adapted from results.css for analysis context) */
+.analysis-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.analysis-header h1 {
+    font-size: 28px;
+    color: var(--primary-color);
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+/* Buttons (Adapted from results.css) */
+.btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    display: inline-flex; /* Changed to inline-flex */
+    align-items: center;
+    gap: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.btn i {
+    line-height: 1; /* Ensure icon aligns well */
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary-color);
+}
+
+.btn-secondary {
+    background-color: var(--light-gray);
+    color: var(--secondary-color);
+    border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    background-color: #e0e0e0;
+}
+
+/* Tabs (Copied from results.css) */
+.tabs {
+    display: flex;
+    gap: 2px;
+    margin-bottom: 20px;
+    background-color: var(--light-gray);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px var(--shadow-color);
+}
+
+.tab-btn { /* Renamed from tab-button */
+    flex: 1;
+    padding: 12px 20px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--secondary-color);
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.tab-btn:hover {
+    background-color: rgba(7, 193, 96, 0.1);
+}
+
+.tab-btn.active {
+    background-color: white;
+    color: var(--primary-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) inset;
+}
+
+/* Tab Content (Copied from results.css) */
+.tab-content {
+    display: none;
+    background-color: white;
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 2px 5px var(--shadow-color);
+    border: 1px solid var(--border-color);
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Section Titles (Combined from results.css) */
+.summary-section h2,
+.activity-section h2,
+.events-section h2,
+.statistics-section h2, /* Added */
+.topics-section h2,
+.sentiment-section h2,
+.timeline-section h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    color: var(--secondary-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+.summary-section h2 i,
+.activity-section h2 i,
+.events-section h2 i,
+.statistics-section h2 i, /* Added */
+.topics-section h2 i,
+.sentiment-section h2 i,
+.timeline-section h2 i {
+    color: var(--primary-color);
+}
+
+
+/* Summary Tab Specifics (From results.css) */
+.summary-section .summary-text {
+    margin-bottom: 30px;
+    line-height: 1.7;
+    padding: 15px;
+    background-color: var(--highlight-color);
+    border-radius: 4px;
+    border-left: 3px solid var(--primary-color);
+}
+
+.summary-section .summary-text.error-message {
+    background-color: #fff3f3;
+    border-left-color: var(--negative-color);
+    color: var(--negative-color);
+}
+
+
+/* Activity Section (From results.css) */
+.activity-section .chart-container {
+    height: 350px;
+    margin-bottom: 30px;
+    background-color: var(--card-bg-color);
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 1px 3px var(--shadow-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Key Events Section (From results.css) */
+.events-section .events-list {
+    margin-bottom: 30px;
+}
+
+.events-section .event-item {
+    display: grid; /* Use grid for better alignment */
+    /* Define columns: 1: Date/Sender, 2: Content (flexible), 3: Type Label */
+    grid-template-columns: auto 1fr auto;
+    gap: 15px;
+    padding: 15px;
+    margin-bottom: 12px;
+    background-color: var(--card-bg-color);
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--primary-color);
+    align-items: center; /* Vertically align items in the center */
+}
+
+.events-section .event-info {
+    /* Container for date and sender in the first column */
+    display: flex;
+    flex-direction: column; /* Stack date and sender vertically */
+    gap: 2px; /* Small gap between date and sender */
+    white-space: nowrap; /* Prevent sender name from wrapping */
+}
+
+.events-section .event-date {
+    font-weight: 500;
+    color: var(--secondary-color);
+    font-size: 0.9em; /* Slightly smaller date */
+}
+
+.events-section .event-sender {
+    font-weight: 600; /* Make sender slightly bolder */
+    color: var(--text-color);
+    font-size: 1em;
+}
+
+.events-section .event-content {
+    /* Takes remaining space in the second column */
+    font-size: 0.95em;
+    color: var(--text-muted-color);
+    line-height: 1.5;
+    /* Allow content to wrap */
+    white-space: normal;
+}
+
+.events-section .event-type-label {
+    /* Positioned in the third column */
+    background-color: rgba(7, 193, 96, 0.1); /* Light green background */
+    color: var(--primary-color);
+    padding: 4px 10px;
+    border-radius: 12px; /* Pill shape */
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+    white-space: nowrap; /* Prevent label text wrapping */
+    justify-self: end; /* Align label to the right end of its column */
+}
+
+/* Statistics Tab Specifics (From results.css) */
+.statistics-section .charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.statistics-section .chart-container {
+    height: 300px;
+    background-color: var(--card-bg-color);
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 1px 3px var(--shadow-color);
+    display: flex;
+    flex-direction: column; /* Allow title */
+    align-items: center;
+    justify-content: center;
+}
+
+.statistics-section .chart-container h3 {
+    font-size: 16px;
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+    text-align: center;
+    width: 100%;
+}
+
+.statistics-section .chart-container.large {
+    grid-column: span 2; /* Example for larger charts */
+}
+
+/* Topics Tab Specifics (From results.css) */
+.topics-section .word-cloud-container {
+    height: 350px;
+    margin-bottom: 30px;
+    background-color: var(--card-bg-color);
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 1px 3px var(--shadow-color);
+}
+
+.topics-section .topics-overview,
+.topics-section .topics-charts,
+.sentiment-section .sentiment-overview,
+.sentiment-section .sentiment-charts,
+.sentiment-section .sentiment-examples {
+    margin-bottom: 30px;
+}
+
+
+/* Sentiment Tab Specifics (From results.css) */
+/* Add styles as needed */
+
+/* Timeline Tab Specifics (From results.css) */
+/* Add styles as needed */
+
+/* Loading Placeholder (From results.css) */
+.loading-placeholder {
+    padding: 40px 20px;
+    text-align: center;
+    color: var(--text-muted-color);
+    font-style: italic;
+    background-color: var(--light-gray);
+    border-radius: 8px;
+    border: 1px dashed var(--border-color);
+    min-height: 100px; /* Give it some height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.summary-section .summary-text.loading-placeholder {
+    background-color: transparent; /* Override */
+    border: none;
+    padding: 20px 0;
+}
+
+.events-section .events-list.loading-placeholder {
+     background-color: transparent; /* Override */
+     border: none;
+     padding: 20px 0;
+}
+
+/* Hide loaded content initially */
+.content-loaded {
+    display: none;
+}
+
+/* Add styles for error messages shown in screenshot */
+.error-message {
+    background-color: #fff3f3;
+    color: var(--negative-color);
+    padding: 10px 15px;
+    border-radius: 4px;
+    border: 1px solid rgba(244, 67, 54, 0.3);
+    margin: 10px 0;
+    font-size: 0.9em;
+}
+
+/* Responsive adjustments (Consider merging from results.css) */
+@media (max-width: 768px) {
+    .analysis-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    .action-buttons {
+        width: 100%;
+        justify-content: flex-start;
+    }
+    .tabs {
+        flex-direction: column;
+    }
+    .statistics-section .charts-grid {
+        grid-template-columns: 1fr; /* Stack charts */
+    }
+     .statistics-section .chart-container.large {
+        grid-column: span 1;
+    }
+    .events-section .event-item {
+        /* Stack all elements vertically on small screens */
+        grid-template-columns: 1fr;
+        gap: 8px;
+        align-items: start; /* Align items to the start */
+    }
+    .events-section .event-info {
+       /* Keep date/sender stacked */
+       margin-bottom: 5px; /* Add space below date/sender block */
+    }
+    .events-section .event-type-label {
+        justify-self: start; /* Align label to the left on small screens */
+        margin-top: 5px; /* Add space above label */
+    }
+}

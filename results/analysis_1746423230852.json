@@ -1,0 +1,73 @@
+{
+  "id": "1746423230852_2-3",
+  "timestamp": "2025-05-05T05:33:50.868Z",
+  "language": "unknown",
+  "metadata": {
+    "platform": "generic",
+    "title": "1746423230852_2-3.txt",
+    "exportDate": "2025-05-05T05:33:50.859Z",
+    "fileName": "1746423230852_2-3.txt",
+    "fileSize": 92169,
+    "messageCount": 43
+  },
+  "top_keywords": {
+    "lv": 129,
+    "ai": 46,
+    "lv1": 44,
+    "lv2": 44,
+    "may": 29,
+    "https": 22,
+    "com": 21,
+    "revokemsg": 16,
+    "luke": 12,
+    "amp": 12,
+    "scys": 11,
+    "activity": 11,
+    "task": 9,
+    "detail": 9,
+    "number": 9,
+    "stage_id": 9,
+    "lucia": 9,
+    "lv3": 9,
+    "title": 8,
+    "description": 8
+  },
+  "sentiment": {
+    "overall": null,
+    "byParticipant": {
+      "教练-luke｜刘哲": null,
+      "青屿-贵港-Lv1": null,
+      "修竹-青岛-Lv.10": null,
+      "小宝-成都-lv10": null,
+      "亮晶晶": null,
+      "教练-叁斤": null,
+      "教练-王多维": null,
+      "教练-更绪😊": null,
+      "教练-巧克力": null,
+      "志南-长沙-Lv.3": null,
+      "不卑不亢-杭州-Lv.2": null,
+      "阿星-杭州-Lv.1": null,
+      "花花-安阳-Lv.3": null,
+      "雨辰—成都": null,
+      "None": null,
+      "豆芽菜": null,
+      "Cathy-广州-Lv2": null,
+      "秋水": null,
+      "sasa-广州--lv2": null,
+      "Fighter": null,
+      "May 深圳 Lv1": null,
+      "༺Yangh༻": null,
+      "一页书-成都-Lv.2": null
+    }
+  },
+  "summary": "Failed to generate summary: DeepSeek API is not available",
+  "events": [
+    {
+      "time": "",
+      "sender": "Unknown",
+      "content": "Failed to extract events: DeepSeek API is not available",
+      "type": "Error"
+    }
+  ],
+  "total_messages": 43
+}

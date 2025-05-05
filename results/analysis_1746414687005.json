@@ -1,0 +1,45 @@
+{
+  "id": "1746414687005_2-3",
+  "timestamp": "2025-05-05T03:11:27.048Z",
+  "language": "unknown",
+  "metadata": {
+    "platform": "generic",
+    "title": "1746414687005_2-3.txt",
+    "exportDate": "2025-05-05T03:11:27.039Z",
+    "fileName": "1746414687005_2-3.txt",
+    "fileSize": 92169,
+    "messageCount": 1
+  },
+  "top_keywords": {
+    "lv": 142,
+    "lv1": 46,
+    "ai": 46,
+    "lv2": 46,
+    "may": 30,
+    "https": 22,
+    "com": 21,
+    "revokemsg": 16,
+    "luke": 13,
+    "amp": 12,
+    "scys": 11,
+    "activity": 11,
+    "task": 9,
+    "detail": 9,
+    "number": 9,
+    "stage_id": 9,
+    "lucia": 9,
+    "lv3": 9,
+    "title": 8,
+    "description": 8
+  },
+  "summary": "无法生成摘要: Invalid or unexpected token",
+  "events": [
+    {
+      "time": "",
+      "sender": "",
+      "content": "无法提取事件: Invalid or unexpected token",
+      "type": "错误"
+    }
+  ],
+  "total_messages": 1
+}

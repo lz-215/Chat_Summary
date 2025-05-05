@@ -1,0 +1,43 @@
+{
+  "id": "1745994052406_test-chat",
+  "timestamp": "2025-04-30T06:20:52.438Z",
+  "language": "unknown",
+  "metadata": {
+    "platform": "generic",
+    "title": "1745994052406_test-chat.txt",
+    "exportDate": "2025-04-30T06:20:52.435Z",
+    "fileName": "1745994052406_test-chat.txt",
+    "fileSize": 918,
+    "messageCount": 1
+  },
+  "statistics": {
+    "totalMessages": 1,
+    "messageCountByParticipant": {},
+    "messageCountByDate": {},
+    "messageLengthStats": {
+      "average": 262,
+      "max": 262,
+      "min": 262,
+      "total": 262
+    },
+    "timeStats": {
+      "mostActiveHour": 0,
+      "messageCountByHour": {}
+    }
+  },
+  "top_keywords": {},
+  "sentiment": {
+    "overall": 0,
+    "byParticipant": {}
+  },
+  "summary": "张三: 大家好，我们明天下午2点有个会议，请准时参加。\n 李四: 好的，会议地点在哪里？\n 张三: 在三楼会议室，主要讨论项目进度。\n 王五: 我可能会晚到10分钟，有点事情要处理。\n 李四: 没问题，我会提前准备一下材料。\n 张三: 谢谢，请大家带上上周的工作总结。\n 王五: 收到，我会准备好的。\n 李四: 对了，周五之前我们需要提交最终方案吗？\n 张三: 是的，周五是截止日期，请大家抓紧时间。\n 王五: 明白了，我会尽快完成我的部分。\n 李四: 好的，如果有问题我们可以随时沟通。\n 张三: 非常好，期待明天的会议！",
+  "events": [
+    {
+      "time": "",
+      "sender": "",
+      "content": "大家好，我们明天下午2点有个会议，请准时参加。\n 李四: 好的，会议地点在哪里？\n 张三: 在三楼会议室，主要讨论项目进度。\n 王五: 我可能会晚到10分钟，有点事情要处理。\n 李四: 没问题，我会提前准备一下材料。\n 张三: 谢谢，请大家带上上周的工作总结。\n 王五: 收到，我会准备好的。\n 李四: 对了，周五之前我们需要提交最终方案吗？\n 张三: 是的，周五是截止日期，请大家抓紧时间。\n 王五: 明白了，我会尽快完成我的部分。\n 李四: 好的，如果有问题我们可以随时沟通。\n 张三: 非常好，期待明天的会议！"
+    }
+  ],
+  "total_messages": 1,
+  "senders": {}
+}

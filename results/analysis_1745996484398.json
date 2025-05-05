@@ -1,0 +1,37 @@
+{
+  "id": "1745996484398_test-chat",
+  "timestamp": "2025-04-30T07:02:17.025Z",
+  "language": "unknown",
+  "metadata": {
+    "platform": "generic",
+    "title": "1745996484398_test-chat.txt",
+    "exportDate": "2025-04-30T07:01:24.426Z",
+    "fileName": "1745996484398_test-chat.txt",
+    "fileSize": 918,
+    "messageCount": 1
+  },
+  "statistics": {
+    "totalMessages": 1,
+    "messageCountByParticipant": {},
+    "messageCountByDate": {},
+    "messageLengthStats": {
+      "average": 262,
+      "max": 262,
+      "min": 262,
+      "total": 262
+    },
+    "timeStats": {
+      "mostActiveHour": 0,
+      "messageCountByHour": {}
+    }
+  },
+  "top_keywords": {},
+  "sentiment": {
+    "overall": 0,
+    "byParticipant": {}
+  },
+  "summary": "无法生成AI摘要，所有模型都失败了。",
+  "events": [],
+  "total_messages": 1,
+  "senders": {}
+}

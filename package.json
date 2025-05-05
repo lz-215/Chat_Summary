@@ -1,0 +1,39 @@
+{
+  "name": "chat-summary",
+  "version": "1.0.0",
+  "description": "聊天记录分析与导出工具",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "chat",
+    "analysis",
+    "wechat",
+    "export"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@huggingface/inference": "^3.10.0",
+    "axios": "^1.9.0",
+    "chardet": "^1.5.1",
+    "chart.js": "^4.4.9",
+    "chartjs-node-canvas": "^5.0.0",
+    "cheerio": "^1.0.0-rc.12",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^4.18.2",
+    "express-fileupload": "^1.4.0",
+    "iconv-lite": "^0.6.3",
+    "jieba": "^1.0.0",
+    "morgan": "^1.10.0",
+    "natural": "^6.2.0",
+    "openai": "^4.96.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

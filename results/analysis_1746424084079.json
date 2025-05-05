@@ -1,0 +1,119 @@
+{
+  "id": "1746424084079_2-3",
+  "timestamp": "2025-05-05T05:49:45.708Z",
+  "language": "unknown",
+  "metadata": {
+    "platform": "generic",
+    "title": "1746424084079_2-3.txt",
+    "exportDate": "2025-05-05T05:48:04.149Z",
+    "fileName": "1746424084079_2-3.txt",
+    "fileSize": 92169,
+    "messageCount": 1
+  },
+  "statistics": {
+    "totalMessages": 1,
+    "messageCountByParticipant": {},
+    "messageCountByDate": {},
+    "messageLengthStats": {
+      "average": 31289,
+      "max": 31289,
+      "min": 31289,
+      "total": 31289
+    },
+    "timeStats": {
+      "mostActiveHour": 0,
+      "messageCountByHour": {}
+    }
+  },
+  "top_keywords": {
+    "lv": 142,
+    "lv1": 46,
+    "ai": 46,
+    "lv2": 46,
+    "may": 30,
+    "https": 22,
+    "com": 21,
+    "revokemsg": 16,
+    "luke": 13,
+    "amp": 12,
+    "scys": 11,
+    "activity": 11,
+    "task": 9,
+    "detail": 9,
+    "number": 9,
+    "stage_id": 9,
+    "lucia": 9,
+    "lv3": 9,
+    "title": 8,
+    "description": 8
+  },
+  "sentiment": {
+    "overall": 0.018565400843881856,
+    "byParticipant": {}
+  },
+  "summary": "- 推荐创意素材网站  \n- 处理客户退货退款  \n- 建议发话题笔记引流  \n- 私信禁发网盘链接  \n- 航海保证金退还提醒",
+  "events": [
+    {
+      "time": "",
+      "sender": "李蓬伟",
+      "content": "客户下单后申请退货问题，教练建议拒绝并晒发货截图",
+      "type": "关键问题"
+    },
+    {
+      "time": "",
+      "sender": "青屿-贵港-Lv1",
+      "content": "连续发商品笔记小眼睛数低，教练建议发话题笔记聚人群",
+      "type": "关键问题"
+    },
+    {
+      "time": "",
+      "sender": "亮晶晶",
+      "content": "小红书私信发百度网盘链接被禁止，建群也不建议",
+      "type": "关键问题"
+    },
+    {
+      "time": "4月8日周二晚上",
+      "sender": "领队-金又又",
+      "content": "入局小红书电商细化目标分享会安排",
+      "type": "会议安排"
+    },
+    {
+      "time": "航海第21天",
+      "sender": "领队-金又又",
+      "content": "宣布航海结束并安排靠岸仪式",
+      "type": "重要决定"
+    },
+    {
+      "time": "",
+      "sender": "晓麒",
+      "content": "店铺账号封禁申诉问题，教练反馈机会不大",
+      "type": "关键问题"
+    },
+    {
+      "time": "",
+      "sender": "五一-成都-lv4",
+      "content": "商品多次改价影响出单问题，教练回应无关",
+      "type": "关键问题"
+    },
+    {
+      "time": "",
+      "sender": "风生_",
+      "content": "公文写作商品被下架，教练解释涉及敏感内容",
+      "type": "关键问题"
+    },
+    {
+      "time": "",
+      "sender": "教练-巧克力",
+      "content": "分享小红书账号阶段目标：前3天发话题笔记激活账号",
+      "type": "重要决定"
+    },
+    {
+      "time": "4月15日",
+      "sender": "领队-金又又",
+      "content": "通知生财第9期续费优惠截止及权益变化",
+      "type": "截止日期"
+    }
+  ],
+  "total_messages": 1,
+  "senders": {}
+}

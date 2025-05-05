@@ -1,0 +1,119 @@
+{
+  "id": "1746424360505_2-3",
+  "timestamp": "2025-05-05T05:54:00.641Z",
+  "language": "unknown",
+  "metadata": {
+    "platform": "generic",
+    "title": "1746424360505_2-3.txt",
+    "exportDate": "2025-05-05T05:52:40.512Z",
+    "fileName": "1746424360505_2-3.txt",
+    "fileSize": 92169,
+    "messageCount": 1
+  },
+  "statistics": {
+    "totalMessages": 1,
+    "messageCountByParticipant": {},
+    "messageCountByDate": {},
+    "messageLengthStats": {
+      "average": 31289,
+      "max": 31289,
+      "min": 31289,
+      "total": 31289
+    },
+    "timeStats": {
+      "mostActiveHour": 0,
+      "messageCountByHour": {}
+    }
+  },
+  "top_keywords": {
+    "lv": 142,
+    "lv1": 46,
+    "ai": 46,
+    "lv2": 46,
+    "may": 30,
+    "https": 22,
+    "com": 21,
+    "revokemsg": 16,
+    "luke": 13,
+    "amp": 12,
+    "scys": 11,
+    "activity": 11,
+    "task": 9,
+    "detail": 9,
+    "number": 9,
+    "stage_id": 9,
+    "lucia": 9,
+    "lv3": 9,
+    "title": 8,
+    "description": 8
+  },
+  "sentiment": {
+    "overall": 0.018565400843881856,
+    "byParticipant": {}
+  },
+  "summary": "- 推荐创意网站获取素材  \n- 建议拒绝客户退款申请  \n- 发话题笔记提升账号流量  \n- 商品违规需调整类目内容  \n- 运营聚焦用户需求优化",
+  "events": [
+    {
+      "time": "4月8日周二晚上",
+      "sender": "领队-金又又",
+      "content": "安排教练-巧克力进行小红书电商运营策略图文分享",
+      "type": "会议安排"
+    },
+    {
+      "time": "",
+      "sender": "李蓬伟",
+      "content": "客户下单后申请退货问题求助",
+      "type": "关键问题"
+    },
+    {
+      "time": "",
+      "sender": "青屿-贵港-Lv1",
+      "content": "咨询商品笔记与普通笔记选择策略",
+      "type": "关键问题"
+    },
+    {
+      "time": "",
+      "sender": "亮晶晶",
+      "content": "询问小红书私信发送百度网盘链接的合规性",
+      "type": "关键问题"
+    },
+    {
+      "time": "",
+      "sender": "教练-王多维",
+      "content": "点评日志并提出产品优化建议（提单价、用自动发货工具）",
+      "type": "重要决定"
+    },
+    {
+      "time": "",
+      "sender": "领队-金又又",
+      "content": "宣布3月航海结束并安排4月15日续费直播",
+      "type": "截止日期"
+    },
+    {
+      "time": "",
+      "sender": "教练-叁斤",
+      "content": "强调账号数据差时应优先优化内容而非刷单",
+      "type": "重要决定"
+    },
+    {
+      "time": "",
+      "sender": "晓麒",
+      "content": "咨询店铺违规下架后的申诉可能性",
+      "type": "关键问题"
+    },
+    {
+      "time": "",
+      "sender": "风生_",
+      "content": "公文写作商品因政治敏感内容被下架",
+      "type": "关键问题"
+    },
+    {
+      "time": "",
+      "sender": "领队-金又又",
+      "content": "发布保证金自助退款流程及截止时间",
+      "type": "截止日期"
+    }
+  ],
+  "total_messages": 1,
+  "senders": {}
+}

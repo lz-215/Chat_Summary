@@ -1,0 +1,110 @@
+{
+  "id": "1746004387813_test-chat",
+  "timestamp": "2025-04-30T09:13:36.191Z",
+  "language": "unknown",
+  "metadata": {
+    "platform": "generic",
+    "title": "1746004387813_test-chat.txt",
+    "exportDate": "2025-04-30T09:13:07.840Z",
+    "fileName": "1746004387813_test-chat.txt",
+    "fileSize": 918,
+    "messageCount": 12
+  },
+  "statistics": {
+    "totalMessages": 12,
+    "messageCountByParticipant": {
+      "张三": 5,
+      "李四": 4,
+      "王五": 3
+    },
+    "messageCountByDate": {},
+    "messageLengthStats": {
+      "average": 16,
+      "max": 23,
+      "min": 10,
+      "total": 192
+    },
+    "timeStats": {
+      "mostActiveHour": 0,
+      "messageCountByHour": {}
+    }
+  },
+  "top_keywords": {},
+  "sentiment": {
+    "overall": null,
+    "byParticipant": {
+      "张三": null,
+      "李四": null,
+      "王五": null
+    }
+  },
+  "summary": "Failed to generate summary: aborted",
+  "events": [
+    {
+      "time": "明天下午2点",
+      "sender": "张三",
+      "content": "有个会议，请准时参加",
+      "type": "会议安排"
+    },
+    {
+      "time": "",
+      "sender": "李四",
+      "content": "会议地点在哪里？",
+      "type": "关键问题"
+    },
+    {
+      "time": "",
+      "sender": "张三",
+      "content": "在三楼会议室，主要讨论项目进度",
+      "type": "会议安排"
+    },
+    {
+      "time": "",
+      "sender": "王五",
+      "content": "可能会晚到10分钟，有点事情要处理",
+      "type": "会议安排"
+    },
+    {
+      "time": "",
+      "sender": "李四",
+      "content": "会提前准备一下材料",
+      "type": "任务分配"
+    },
+    {
+      "time": "",
+      "sender": "张三",
+      "content": "请大家带上上周的工作总结",
+      "type": "任务分配"
+    },
+    {
+      "time": "",
+      "sender": "李四",
+      "content": "周五之前我们需要提交最终方案吗？",
+      "type": "关键问题"
+    },
+    {
+      "time": "",
+      "sender": "张三",
+      "content": "周五是截止日期，请大家抓紧时间",
+      "type": "截止日期"
+    },
+    {
+      "time": "",
+      "sender": "王五",
+      "content": "会尽快完成我的部分",
+      "type": "任务分配"
+    },
+    {
+      "time": "",
+      "sender": "张三",
+      "content": "期待明天的会议",
+      "type": "会议安排"
+    }
+  ],
+  "total_messages": 12,
+  "senders": {
+    "张三": 5,
+    "李四": 4,
+    "王五": 3
+  }
+}

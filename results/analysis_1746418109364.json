@@ -1,0 +1,127 @@
+{
+  "id": "1746418109364_2-3",
+  "timestamp": "2025-05-05T04:09:04.471Z",
+  "language": "unknown",
+  "metadata": {
+    "platform": "generic",
+    "title": "1746418109364_2-3.txt",
+    "exportDate": "2025-05-05T04:08:29.375Z",
+    "fileName": "1746418109364_2-3.txt",
+    "fileSize": 92169,
+    "messageCount": 43
+  },
+  "top_keywords": {
+    "lv": 129,
+    "ai": 46,
+    "lv1": 44,
+    "lv2": 44,
+    "may": 29,
+    "https": 22,
+    "com": 21,
+    "revokemsg": 16,
+    "luke": 12,
+    "amp": 12,
+    "scys": 11,
+    "activity": 11,
+    "task": 9,
+    "detail": 9,
+    "number": 9,
+    "stage_id": 9,
+    "lucia": 9,
+    "lv3": 9,
+    "title": 8,
+    "description": 8
+  },
+  "sentiment": {
+    "overall": null,
+    "byParticipant": {
+      "教练-luke｜刘哲": null,
+      "青屿-贵港-Lv1": null,
+      "修竹-青岛-Lv.10": null,
+      "小宝-成都-lv10": null,
+      "亮晶晶": null,
+      "教练-叁斤": null,
+      "教练-王多维": null,
+      "教练-更绪😊": null,
+      "教练-巧克力": null,
+      "志南-长沙-Lv.3": null,
+      "不卑不亢-杭州-Lv.2": null,
+      "阿星-杭州-Lv.1": null,
+      "花花-安阳-Lv.3": null,
+      "雨辰—成都": null,
+      "None": null,
+      "豆芽菜": null,
+      "Cathy-广州-Lv2": null,
+      "秋水": null,
+      "sasa-广州--lv2": null,
+      "Fighter": null,
+      "May 深圳 Lv1": null,
+      "༺Yangh༻": null,
+      "一页书-成都-Lv.2": null
+    }
+  },
+  "summary": "- 分享创意灵感网站  \n- 讨论小红书运营问题  \n- 教练点评航海日志  \n- 虚拟商品发货争议  \n- 续费生财会员优惠",
+  "events": [
+    {
+      "time": "",
+      "sender": "教练-luke｜刘哲",
+      "content": "大家如果没有灵感创意，可以多看看这个网站",
+      "type": "关键问题"
+    },
+    {
+      "time": "",
+      "sender": "李蓬伟",
+      "content": "遇到有客户下单后，网盘自动发货，隔两个小时，客户又以“拍错，不想要”为由申请退货怎么办？",
+      "type": "关键问题"
+    },
+    {
+      "time": "",
+      "sender": "青屿-贵港-Lv1",
+      "content": "连续发了一周商品笔记，小眼睛数基本在200以内，有些发出去过了几个小时都没破20。一般笔记数据相对好些，但是点评赞量超过30小眼睛数也不过两百。后台数据每天会出一两单，来自发现页和搜索页的。",
+      "type": "关键问题"
+    },
+    {
+      "time": "",
+      "sender": "亮晶晶",
+      "content": "小红书 私信可以发百度网盘链接吗",
+      "type": "关键问题"
+    },
+    {
+      "time": "",
+      "sender": "发财-广州-lv1",
+      "content": "如何判断自己是否违规",
+      "type": "关键问题"
+    },
+    {
+      "time": "",
+      "sender": "五一-成都-lv4",
+      "content": "商品上架之后，可以多次改价吗？我感觉我改了几次之后，最近都没出单了",
+      "type": "关键问题"
+    },
+    {
+      "time": "",
+      "sender": "晓麒",
+      "content": "店铺账号封禁，可以申诉回来吗？",
+      "type": "关键问题"
+    },
+    {
+      "time": "",
+      "sender": "领队-金又又",
+      "content": "今天又到了周一啦~【教练点评】开始~",
+      "type": "会议安排"
+    },
+    {
+      "time": "",
+      "sender": "志伟-长沙-lv2",
+      "content": "需要每发一篇笔记都重新选品吗？选题与笔记、商品的关系是？一篇笔记对应一个选题？一个商品可以对应发多个选题、多篇笔记？",
+      "type": "关键问题"
+    },
+    {
+      "time": "",
+      "sender": "领队-金又又",
+      "content": "本次航海今晚就要靠岸啦，靠岸不等于结束，而是新的开始。",
+      "type": "会议安排"
+    }
+  ],
+  "total_messages": 43
+}

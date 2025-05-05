@@ -1,0 +1,71 @@
+{
+  "id": "1746004038420_chat-log-txt",
+  "timestamp": "2025-04-30T09:07:19.037Z",
+  "language": "unknown",
+  "metadata": {
+    "platform": "generic",
+    "title": "1746004038420_chat-log-txt.txt",
+    "exportDate": "2025-04-30T09:07:18.453Z",
+    "fileName": "1746004038420_chat-log-txt.txt",
+    "fileSize": 8942,
+    "messageCount": 2
+  },
+  "statistics": {
+    "totalMessages": 2,
+    "messageCountByParticipant": {
+      "时间范围": 1
+    },
+    "messageCountByDate": {},
+    "messageLengthStats": {
+      "average": 1379.5,
+      "max": 2737,
+      "min": 22,
+      "total": 2759
+    },
+    "timeStats": {
+      "mostActiveHour": 0,
+      "messageCountByHour": {}
+    }
+  },
+  "top_keywords": {
+    "ar": 7,
+    "ui": 4,
+    "banner": 2,
+    "ios": 2,
+    "3d": 1,
+    "ux": 1,
+    "react": 1,
+    "redux": 1,
+    "node": 1,
+    "js": 1,
+    "express": 1,
+    "mongodb": 1,
+    "docker": 1,
+    "api": 1,
+    "cdn": 1,
+    "redis": 1,
+    "material": 1,
+    "design": 1,
+    "qq": 1,
+    "http": 1
+  },
+  "sentiment": {
+    "overall": null,
+    "byParticipant": {
+      "时间范围": 0
+    }
+  },
+  "summary": "Failed to generate summary: DeepSeek API is not available",
+  "events": [
+    {
+      "time": "",
+      "sender": "",
+      "content": "Failed to extract events: DeepSeek API is not available",
+      "type": "Error"
+    }
+  ],
+  "total_messages": 2,
+  "senders": {
+    "时间范围": 1
+  }
+}

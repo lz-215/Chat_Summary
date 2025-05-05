@@ -1,0 +1,125 @@
+{
+  "id": "1746409681147_chat-log-txt",
+  "timestamp": "2025-05-05T01:48:33.611Z",
+  "language": "unknown",
+  "metadata": {
+    "platform": "generic",
+    "title": "1746409681147_chat-log-txt.txt",
+    "exportDate": "2025-05-05T01:48:01.177Z",
+    "fileName": "1746409681147_chat-log-txt.txt",
+    "fileSize": 8942,
+    "messageCount": 2
+  },
+  "statistics": {
+    "totalMessages": 2,
+    "messageCountByParticipant": {
+      "时间范围": 1
+    },
+    "messageCountByDate": {},
+    "messageLengthStats": {
+      "average": 1379.5,
+      "max": 2737,
+      "min": 22,
+      "total": 2759
+    },
+    "timeStats": {
+      "mostActiveHour": 0,
+      "messageCountByHour": {}
+    }
+  },
+  "top_keywords": {
+    "ar": 7,
+    "ui": 4,
+    "banner": 2,
+    "ios": 2,
+    "3d": 1,
+    "ux": 1,
+    "react": 1,
+    "redux": 1,
+    "node": 1,
+    "js": 1,
+    "express": 1,
+    "mongodb": 1,
+    "docker": 1,
+    "api": 1,
+    "cdn": 1,
+    "redis": 1,
+    "material": 1,
+    "design": 1,
+    "qq": 1,
+    "http": 1
+  },
+  "sentiment": {
+    "overall": null,
+    "byParticipant": {
+      "时间范围": 0
+    }
+  },
+  "summary": "- 讨论电商项目进度\n- 确定三核心功能\n- AR功能延后开发\n- 完成技术架构设计\n- 修改UI设计方案\n- 进入开发阶段\n- 修复测试问题\n- 准备正式上线",
+  "events": [
+    {
+      "time": "2025-04-01",
+      "sender": "张经理",
+      "content": "下午2点开会讨论新的电商平台项目进度",
+      "type": "会议安排"
+    },
+    {
+      "time": "2025-04-01",
+      "sender": "赵产品",
+      "content": "根据市场调研，确定了三个核心功能：个性化推荐系统、社交分享功能、AR试用功能",
+      "type": "重要决定"
+    },
+    {
+      "time": "2025-04-01",
+      "sender": "李工程师",
+      "content": "AR功能实现难度较大，初步估计需要2个月时间开发，建议在第二期再实施",
+      "type": "关键问题"
+    },
+    {
+      "time": "2025-04-01",
+      "sender": "张经理",
+      "content": "把AR功能放到第二期，赵产品请更新需求文档，将重点放在前两个功能上",
+      "type": "任务分配"
+    },
+    {
+      "time": "2025-04-01",
+      "sender": "李工程师",
+      "content": "前端采用React + Redux，后端使用Node.js + Express，数据库用MongoDB",
+      "type": "重要决定"
+    },
+    {
+      "time": "2025-04-01",
+      "sender": "王设计师",
+      "content": "首页、商品列表、详情页的设计已经完成，购物车和结算流程正在设计中",
+      "type": "任务分配"
+    },
+    {
+      "time": "2025-04-01",
+      "sender": "张经理",
+      "content": "设计看起来不错！有几点建议：首页的Banner太大了，建议缩小一些；商品卡片信息有点密集，可以简化一下；配色方案需要统一",
+      "type": "关键问题"
+    },
+    {
+      "time": "2025-04-01",
+      "sender": "赵产品",
+      "content": "更新后的需求文档已发到邮箱，重点改动：AR功能移至第二期，增强了社交分享功能的详细需求",
+      "type": "任务分配"
+    },
+    {
+      "time": "2025-04-01",
+      "sender": "李工程师",
+      "content": "技术方案评审会议定在明天上午10点，请产品和设计团队参加",
+      "type": "会议安排"
+    },
+    {
+      "time": "2025-04-30",
+      "sender": "张经理",
+      "content": "明天上午10点正式上线，祝我们项目成功",
+      "type": "截止日期"
+    }
+  ],
+  "total_messages": 2,
+  "senders": {
+    "时间范围": 1
+  }
+}

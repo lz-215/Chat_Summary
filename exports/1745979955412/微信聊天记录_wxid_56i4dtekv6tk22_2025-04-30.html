@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>微信聊天记录</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .message { margin-bottom: 15px; }
+        .sender { font-weight: bold; }
+        .time { color: #999; font-size: 0.8em; }
+        .content { margin-top: 5px; }
+        .self { text-align: right; }
+        .self .content { background-color: #9EEA6A; padding: 10px; border-radius: 6px; display: inline-block; }
+        .other .content { background-color: #f1f1f1; padding: 10px; border-radius: 6px; display: inline-block; }
+    </style>
+</head>
+<body>
+    <h1>微信聊天记录</h1>
+    <div class="chat-container">
+        <div class="message other">
+            <div class="sender">张三</div>
+            <div class="time">2023-01-01 12:00:00</div>
+            <div class="content">你好，最近怎么样？</div>
+        </div>
+        <div class="message self">
+            <div class="sender">我</div>
+            <div class="time">2023-01-01 12:01:30</div>
+            <div class="content">挺好的，你呢？</div>
+        </div>
+        <div class="message other">
+            <div class="sender">张三</div>
+            <div class="time">2023-01-01 12:02:45</div>
+            <div class="content">我也不错，周末有空一起吃饭吗？</div>
+        </div>
+        <div class="message self">
+            <div class="sender">我</div>
+            <div class="time">2023-01-01 12:05:10</div>
+            <div class="content">好啊，周六晚上怎么样？</div>
+        </div>
+        <div class="message other">
+            <div class="sender">张三</div>
+            <div class="time">2023-01-01 12:10:22</div>
+            <div class="content">可以，到时候我来接你</div>
+        </div>
+        <div class="message self">
+            <div class="sender">我</div>
+            <div class="time">2023-01-01 12:15:30</div>
+            <div class="content">好的，到时候见</div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+{
+  "reportTitle": "AI 自媒体创造营 🦊<0xF0><0x9F><0xA6><0xAD>🐠 日报",
+  "date": "2025-05-05",
+  "totalMessages": 1,
+  "activeUsers": "N/A",
+  "timeRange": "全天",
+  "overallSummary": "无法生成整体摘要: Invalid or unexpected token",
+  "discussionHotspots": [
+    {
+      "title": "分析失败",
+      "category": "错误",
+      "summary": "无法分析热点话题: Invalid or unexpected token",
+      "keywords": [],
+      "frequency": "低",
+      "messageCount": 0
+    }
+  ],
+  "id": "1746415180977_2-3",
+  "timestamp": "2025-05-05T03:19:41.019Z",
+  "language": "unknown",
+  "metadata": {
+    "platform": "generic",
+    "title": "1746415180977_2-3.txt",
+    "exportDate": "2025-05-05T03:19:41.012Z",
+    "fileName": "1746415180977_2-3.txt",
+    "fileSize": 92169,
+    "messageCount": 1
+  },
+  "top_keywords": [],
+  "summary": "",
+  "events": [],
+  "total_messages": 1
+}

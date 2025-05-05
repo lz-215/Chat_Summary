@@ -1,0 +1,457 @@
+/* Main CSS Styles for WeChat Analyzer */
+
+:root {
+    --primary-color: #07c160;
+    --secondary-color: #1aad19;
+    --text-color: #333;
+    --light-gray: #f5f5f5;
+    --border-color: #e0e0e0;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: #f9f9f9;
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+ul {
+    list-style: none;
+}
+
+/* Header & Navigation */
+header {
+    background-color: white;
+    box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 20px;
+}
+
+.logo h1 {
+    font-size: 24px;
+    color: var(--primary-color);
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    padding: 8px 12px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-radius: 4px;
+}
+
+.nav-links a:hover {
+    background-color: rgba(7, 193, 96, 0.1);
+}
+
+.nav-links a.active {
+    color: white;
+    background-color: var(--primary-color);
+}
+
+/* Main content */
+main {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Hero section */
+.hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 60px;
+}
+
+.hero-content {
+    flex: 1;
+}
+
+.hero-content h1 {
+    font-size: 36px;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.hero-content p {
+    font-size: 18px;
+    margin-bottom: 25px;
+    color: #666;
+}
+
+.hero-image {
+    flex: 1;
+    text-align: center;
+}
+
+.hero-image img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* CTA Buttons */
+.cta-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 16px;
+    transition: all 0.2s ease;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.btn.primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn.primary:hover {
+    background-color: var(--secondary-color);
+}
+
+.btn.secondary {
+    background-color: var(--light-gray);
+    color: var(--primary-color);
+}
+
+.btn.secondary:hover {
+    background-color: #e0e0e0;
+}
+
+/* Features Section */
+.features {
+    margin-bottom: 60px;
+}
+
+.features h2 {
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--primary-color);
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.feature-card {
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px var(--shadow-color);
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.feature-icon {
+    font-size: 36px;
+    margin-bottom: 15px;
+}
+
+.feature-card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.feature-card p {
+    font-size: 15px;
+    color: #666;
+}
+
+/* How it works section */
+.how-it-works {
+    margin-bottom: 60px;
+}
+
+.how-it-works h2 {
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--primary-color);
+}
+
+.steps {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.step {
+    flex: 1;
+    text-align: center;
+    padding: 25px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px var(--shadow-color);
+    position: relative;
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+}
+
+.step h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.step p {
+    font-size: 15px;
+    color: #666;
+}
+
+/* Footer */
+footer {
+    background-color: white;
+    box-shadow: 0 -2px 4px var(--shadow-color);
+    padding: 40px 20px 20px;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 200px;
+}
+
+.footer-section h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+.footer-section p,
+.footer-section li {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section a {
+    color: #666;
+    transition: color 0.2s ease;
+}
+
+.footer-section a:hover {
+    color: var(--primary-color);
+}
+
+.footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+    font-size: 14px;
+    color: #999;
+}
+
+.footer-links {
+    margin: 15px 0;
+}
+
+.footer-links a {
+    color: #666;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    font-size: 13px;
+}
+
+.footer-links a:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+.separator {
+    margin: 0 10px;
+    color: #ccc;
+}
+
+.disclaimer {
+    font-size: 12px;
+    color: #999;
+    max-width: 800px;
+    margin: 15px auto 0;
+    line-height: 1.5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero {
+        flex-direction: column;
+    }
+
+    .steps {
+        flex-direction: column;
+    }
+
+    .nav-links {
+        gap: 10px;
+    }
+
+    .hero-content h1 {
+        font-size: 28px;
+    }
+
+    .hero-content p {
+        font-size: 16px;
+    }
+}
+
+/* 添加新的样式来支持导出功能 */
+
+.btn.outline {
+    background-color: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+.btn.outline:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* 分析部分样式 */
+.analysis-section {
+    padding: 60px 20px;
+    background-color: #f8f9fa;
+    margin-top: 40px;
+}
+
+.analysis-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.analysis-info {
+    flex: 1;
+}
+
+.analysis-info h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+.analysis-info p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.analysis-features {
+    list-style: none;
+    margin-bottom: 25px;
+}
+
+.analysis-features li {
+    margin-bottom: 12px;
+    position: relative;
+    padding-left: 25px;
+}
+
+.analysis-features li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.feature-highlight {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.analysis-image {
+    flex: 1;
+    text-align: center;
+}
+
+.analysis-image img {
+    max-width: 100%;
+    max-height: 400px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* 响应式样式 */
+@media (max-width: 768px) {
+    .analysis-content {
+        flex-direction: column;
+    }
+
+    .analysis-image {
+        order: -1; /* 在小屏幕上图片显示在上方 */
+    }
+}

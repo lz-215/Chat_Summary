@@ -1,0 +1,65 @@
+{
+  "id": "1746423526486_2-3",
+  "timestamp": "2025-05-05T05:38:46.760Z",
+  "language": "unknown",
+  "metadata": {
+    "platform": "generic",
+    "title": "1746423526486_2-3.txt",
+    "exportDate": "2025-05-05T05:38:46.525Z",
+    "fileName": "1746423526486_2-3.txt",
+    "fileSize": 92169,
+    "messageCount": 1
+  },
+  "statistics": {
+    "totalMessages": 1,
+    "messageCountByParticipant": {},
+    "messageCountByDate": {},
+    "messageLengthStats": {
+      "average": 31289,
+      "max": 31289,
+      "min": 31289,
+      "total": 31289
+    },
+    "timeStats": {
+      "mostActiveHour": 0,
+      "messageCountByHour": {}
+    }
+  },
+  "top_keywords": {
+    "lv": 142,
+    "lv1": 46,
+    "ai": 46,
+    "lv2": 46,
+    "may": 30,
+    "https": 22,
+    "com": 21,
+    "revokemsg": 16,
+    "luke": 13,
+    "amp": 12,
+    "scys": 11,
+    "activity": 11,
+    "task": 9,
+    "detail": 9,
+    "number": 9,
+    "stage_id": 9,
+    "lucia": 9,
+    "lv3": 9,
+    "title": 8,
+    "description": 8
+  },
+  "sentiment": {
+    "overall": 0.018565400843881856,
+    "byParticipant": {}
+  },
+  "summary": "Failed to generate summary: DeepSeek API is not available",
+  "events": [
+    {
+      "time": "",
+      "sender": "Unknown",
+      "content": "Failed to extract events: DeepSeek API is not available",
+      "type": "Error"
+    }
+  ],
+  "total_messages": 1,
+  "senders": {}
+}
