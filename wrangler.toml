@@ -11,10 +11,10 @@ bucket = "./templates"
 [env.production]
 vars = { NODE_ENV = "production" }
 
-# 注意：您需要在Cloudflare控制台创建KV命名空间，并将ID替换到下面
+# KV命名空间配置
 [[kv_namespaces]]
 binding = "CHAT_ANALYSIS_STORAGE"
-id = "your-kv-namespace-id"  # 这个ID需要从Cloudflare控制台获取
+id = "94bb588f7514891b5f6ea569af482c08"
 
 # 环境变量
 [vars]

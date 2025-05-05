@@ -890,40 +890,63 @@ function exportAsHtml(analysisId) {
 
 // 导出为JSON
 function exportAsJson(analysisId) {
-    fetch(`/api/analysis/${analysisId}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to fetch analysis data');
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.success) {
-                // 创建下载链接
-                const jsonStr = JSON.stringify(data.data, null, 2);
-                const blob = new Blob([jsonStr], { type: 'application/json' });
-                const url = URL.createObjectURL(blob);
+    try {
+        // 从localStorage获取数据
+        const storedData = localStorage.getItem(`analysis_${analysisId}`);
 
-                // 创建下载链接并点击
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `chat_analysis_${analysisId}.json`;
-                document.body.appendChild(a);
-                a.click();
+        if (!storedData) {
+            throw new Error('Analysis data not found in localStorage');
+        }
 
-                // 清理
-                setTimeout(() => {
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(url);
-                }, 100);
-            } else {
-                throw new Error(data.error || 'Failed to export data');
-            }
-        })
-        .catch(error => {
-            console.error('Error exporting data:', error);
-            showError('Failed to export data: ' + error.message);
-        });
+        // 解析JSON数据
+        const analysisData = JSON.parse(storedData);
+
+        // 创建下载链接
+        const jsonStr = JSON.stringify(analysisData, null, 2);
+        const blob = new Blob([jsonStr], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+
+        // 创建下载链接并点击
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `chat_analysis_${analysisId}.json`;
+        document.body.appendChild(a);
+        a.click();
+
+        // 清理
+        setTimeout(() => {
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }, 100);
+    } catch (error) {
+        console.error('Error exporting data:', error);
+        showError('Failed to export data: ' + error.message);
+
+        // 尝试使用fallback数据
+        try {
+            const fallbackData = createFallbackData(analysisId);
+            const jsonStr = JSON.stringify(fallbackData, null, 2);
+
+            // 创建下载链接
+            const blob = new Blob([jsonStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+
+            // 创建下载链接并点击
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `chat_analysis_${analysisId}.json`;
+            document.body.appendChild(a);
+            a.click();
+
+            // 清理
+            setTimeout(() => {
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }, 100);
+        } catch (fallbackError) {
+            console.error('Error using fallback data for export:', fallbackError);
+        }
+    }
 }
 
 // 显示加载提示
