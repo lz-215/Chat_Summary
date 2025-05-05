@@ -600,16 +600,8 @@ async function generateHtmlString(analysisResult) {
     }
 }
 
-// 兼容CommonJS和ESM
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {
-        generateHtmlExport,
-        generateHtmlString
-    };
-}
-
-// 导出ESM模块
-export default {
+// 只使用CommonJS导出
+module.exports = {
     generateHtmlExport,
     generateHtmlString
 };
