@@ -55,8 +55,12 @@ function loadAnalysisData(analysisId, retryCount = 0) {
 
     console.log(`Attempting to load analysis data (attempt ${retryCount + 1})`);
 
+    // 获取当前域名，构建完整的API URL
+    const apiUrl = new URL(`/api/analysis/${analysisId}`, window.location.origin).href;
+    console.log('使用API URL:', apiUrl);
+
     // Fetch analysis data from server
-    fetch(`/api/analysis/${analysisId}`)
+    fetch(apiUrl)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to fetch analysis data');
