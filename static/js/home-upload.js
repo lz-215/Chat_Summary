@@ -87,8 +87,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
             console.log('开始发送API请求...');
 
+            // 获取当前域名，构建完整的API URL
+            const apiUrl = new URL('/api/upload-chat', window.location.origin).href;
+            console.log('使用API URL:', apiUrl);
+
             // Make API call to upload and analyze the file
-            fetch('/api/upload-chat', {
+            fetch(apiUrl, {
                 method: 'POST',
                 body: formData,
                 // 增加超时时间
