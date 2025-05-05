@@ -17,18 +17,22 @@ const path = require('path');
  */
 async function analyzeChat(fileContent, outputPath) {
     try {
-        console.log(`开始分析聊天内容`);
+        console.log(`Starting chat content analysis`);
+
+        // 检查是否在Cloudflare环境中运行
+        const isCloudflare = typeof process === 'undefined' || !process.version;
+        console.log('Running in Cloudflare environment:', isCloudflare);
 
         // 解析聊天文件
         let parseResult;
         let filePath = '';
 
-        if (typeof fileContent === 'string' && fs.existsSync(fileContent)) {
-            // 如果是文件路径
+        if (!isCloudflare && typeof fileContent === 'string' && fs.existsSync(fileContent)) {
+            // 如果是文件路径（仅在非Cloudflare环境中）
             filePath = fileContent;
             parseResult = fileParser.parseFile(fileContent);
         } else {
-            // 如果是文件内容
+            // 如果是文件内容或在Cloudflare环境中
             filePath = 'memory_file_' + Date.now();
             parseResult = fileParser.parseContent(fileContent);
         }
@@ -85,15 +89,18 @@ async function analyzeChat(fileContent, outputPath) {
             }];
         }
 
+        // 检查是否在Cloudflare环境中运行
+        const isCloudflare = typeof process === 'undefined' || !process.version;
+
         // 组合分析结果
         const result = {
-            id: path.basename(filePath, path.extname(filePath)),
+            id: isCloudflare ? filePath : path.basename(filePath, path.extname(filePath)),
             timestamp: new Date().toISOString(),
             language,
             metadata: {
                 ...metadata,
-                fileName: path.basename(filePath),
-                fileSize: fs.statSync(filePath).size,
+                fileName: isCloudflare ? filePath : path.basename(filePath),
+                fileSize: isCloudflare ? (typeof fileContent === 'string' ? fileContent.length : 0) : fs.statSync(filePath).size,
                 messageCount: messages.length
             },
             statistics,

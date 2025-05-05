@@ -69,108 +69,61 @@ app.use('/static', express.static(path.join(__dirname, 'static')));
 app.use('/templates', express.static(path.join(__dirname, 'templates')));
 
 // API路由
-app.post('/api/upload-chat', (req, res) => {
-    console.log('收到文件上传请求');
-    console.log('请求头:', req.headers);
-
-    // 设置响应超时时间
-    req.setTimeout(120000); // 120秒
-    res.setTimeout(120000); // 120秒
+app.post('/api/upload-chat', async (req, res) => {
+    console.log('Received file upload request');
+    console.log('Headers:', req.headers);
 
     try {
-        // 检查是否有文件上传
-        if (!req.files) {
-            console.error('没有接收到文件对象: req.files 为空');
-            return res.status(400).json({
-                success: false,
-                error: 'No files object received'
-            });
-        }
+        // 检查是否在Cloudflare环境中运行
+        const isCloudflare = typeof process === 'undefined' || !process.version;
+        console.log('Running in Cloudflare environment:', isCloudflare);
 
-        if (Object.keys(req.files).length === 0) {
-            console.error('没有上传文件: req.files 为空对象');
-            return res.status(400).json({
-                success: false,
-                error: 'No file uploaded'
-            });
-        }
+        if (isCloudflare) {
+            // Cloudflare环境下的处理逻辑
+            // 在这种情况下，req.files不可用，需要从请求体中获取文件
 
-        console.log('接收到的文件字段:', Object.keys(req.files));
+            // 从请求中获取文件内容
+            let fileContent;
+            let fileName;
 
-        if (!req.files.file) {
-            console.error('找不到名为 "file" 的文件字段');
-            return res.status(400).json({
-                success: false,
-                error: 'No file field found in the request'
-            });
-        }
-
-        const file = req.files.file;
-        console.log('文件信息:', {
-            name: file.name,
-            size: file.size,
-            mimetype: file.mimetype,
-            md5: file.md5,
-            encoding: file.encoding
-        });
-
-        // 检查文件类型
-        const ext = path.extname(file.name).toLowerCase();
-        if (ext !== '.txt') {
-            console.error('不支持的文件类型:', ext);
-            return res.status(400).json({
-                success: false,
-                error: `Unsupported file format: ${ext}. Only TXT files are supported.`
-            });
-        }
-
-        // 暂时不支持HTML文件
-        if (ext === '.html' || ext === '.htm') {
-            console.error('暂时不支持HTML文件');
-            return res.status(400).json({
-                success: false,
-                error: `HTML format is temporarily not supported. Please use TXT format instead.`
-            });
-        }
-
-        const fileId = Date.now().toString();
-        const filePath = path.join(uploadsDir, `${fileId}_${file.name}`);
-
-        // 确保上传目录存在
-        if (!fs.existsSync(uploadsDir)) {
-            fs.mkdirSync(uploadsDir, { recursive: true });
-            console.log(`创建上传目录: ${uploadsDir}`);
-        }
-
-        // 确保结果目录存在
-        if (!fs.existsSync(resultsDir)) {
-            fs.mkdirSync(resultsDir, { recursive: true });
-            console.log(`创建结果目录: ${resultsDir}`);
-        }
-
-        // 保存上传的文件
-        file.mv(filePath, async (err) => {
-            if (err) {
-                console.error('保存文件失败:', err);
-                return res.status(500).json({
+            if (req.body && req.body.file) {
+                // 如果文件内容已经在请求体中
+                fileContent = req.body.file;
+                fileName = req.body.fileName || 'uploaded_file.txt';
+            } else {
+                // 如果请求体中没有文件，返回错误
+                console.error('No file received in request body');
+                return res.status(400).json({
                     success: false,
-                    error: 'Failed to save file: ' + err.message
+                    error: 'No file received in request body'
                 });
             }
 
-            console.log(`文件已保存至: ${filePath}`);
+            // 检查文件类型
+            const ext = fileName.substring(fileName.lastIndexOf('.')).toLowerCase();
+            if (ext !== '.txt') {
+                console.error('Unsupported file format:', ext);
+                return res.status(400).json({
+                    success: false,
+                    error: `Unsupported file format: ${ext}. Only TXT files are supported.`
+                });
+            }
 
-            // 生成分析ID
+            // 生成文件ID和分析ID
+            const fileId = Date.now().toString();
             const analysisId = `analysis_${fileId}`;
-            const outputPath = path.join(resultsDir, `${analysisId}.json`);
 
             try {
-                // 分析聊天文件
-                console.log(`开始分析文件: ${filePath}`);
-                const analysisResult = await chatAnalyzer.analyzeChat(filePath, outputPath);
+                // 使用存储模块保存文件内容
+                await storage.saveUploadedFile(fileId, fileContent);
+                console.log(`File saved with ID: ${fileId}`);
+
+                // 分析聊天内容
+                console.log(`Starting analysis of file: ${fileId}`);
+                const analysisResult = await chatAnalyzer.analyzeChat(fileContent, analysisId);
 
                 if (analysisResult && analysisResult.success) {
-                    console.log(`文件分析成功: ${analysisId}`);
+                    console.log(`Analysis successful: ${analysisId}`);
                     res.json({
                         success: true,
                         file_id: fileId,
@@ -179,24 +132,130 @@ app.post('/api/upload-chat', (req, res) => {
                     });
                 } else {
                     const errorMsg = analysisResult ? analysisResult.error : 'Unknown analysis error';
-                    console.error(`文件分析失败: ${errorMsg}`);
+                    console.error(`Analysis failed: ${errorMsg}`);
                     res.status(500).json({
                         success: false,
                         error: errorMsg || 'Failed to analyze file'
                     });
                 }
             } catch (error) {
-                console.error('分析过程中出错:', error);
-                console.error('错误堆栈:', error.stack);
+                console.error('Error during analysis:', error);
                 res.status(500).json({
                     success: false,
                     error: 'Error during file analysis: ' + (error.message || 'Unknown error')
                 });
             }
-        });
+        } else {
+            // 本地环境下的处理逻辑
+            // 检查是否有文件上传
+            if (!req.files) {
+                console.error('No files object received: req.files is empty');
+                return res.status(400).json({
+                    success: false,
+                    error: 'No files object received'
+                });
+            }
+
+            if (Object.keys(req.files).length === 0) {
+                console.error('No file uploaded: req.files is an empty object');
+                return res.status(400).json({
+                    success: false,
+                    error: 'No file uploaded'
+                });
+            }
+
+            console.log('Received file fields:', Object.keys(req.files));
+
+            if (!req.files.file) {
+                console.error('No "file" field found in the request');
+                return res.status(400).json({
+                    success: false,
+                    error: 'No file field found in the request'
+                });
+            }
+
+            const file = req.files.file;
+            console.log('File info:', {
+                name: file.name,
+                size: file.size,
+                mimetype: file.mimetype
+            });
+
+            // 检查文件类型
+            const ext = path.extname(file.name).toLowerCase();
+            if (ext !== '.txt') {
+                console.error('Unsupported file format:', ext);
+                return res.status(400).json({
+                    success: false,
+                    error: `Unsupported file format: ${ext}. Only TXT files are supported.`
+                });
+            }
+
+            const fileId = Date.now().toString();
+            const filePath = path.join(uploadsDir, `${fileId}_${file.name}`);
+
+            // 确保上传目录存在
+            if (!fs.existsSync(uploadsDir)) {
+                fs.mkdirSync(uploadsDir, { recursive: true });
+                console.log(`Created upload directory: ${uploadsDir}`);
+            }
+
+            // 确保结果目录存在
+            if (!fs.existsSync(resultsDir)) {
+                fs.mkdirSync(resultsDir, { recursive: true });
+                console.log(`Created results directory: ${resultsDir}`);
+            }
+
+            // 保存上传的文件
+            file.mv(filePath, async (err) => {
+                if (err) {
+                    console.error('Failed to save file:', err);
+                    return res.status(500).json({
+                        success: false,
+                        error: 'Failed to save file: ' + err.message
+                    });
+                }
+
+                console.log(`File saved to: ${filePath}`);
+
+                // 生成分析ID
+                const analysisId = `analysis_${fileId}`;
+                const outputPath = path.join(resultsDir, `${analysisId}.json`);
+
+                try {
+                    // 分析聊天文件
+                    console.log(`Starting analysis of file: ${filePath}`);
+                    const analysisResult = await chatAnalyzer.analyzeChat(filePath, outputPath);
+
+                    if (analysisResult && analysisResult.success) {
+                        console.log(`Analysis successful: ${analysisId}`);
+                        res.json({
+                            success: true,
+                            file_id: fileId,
+                            analysis_id: analysisId,
+                            message: 'File uploaded and analyzed successfully'
+                        });
+                    } else {
+                        const errorMsg = analysisResult ? analysisResult.error : 'Unknown analysis error';
+                        console.error(`Analysis failed: ${errorMsg}`);
+                        res.status(500).json({
+                            success: false,
+                            error: errorMsg || 'Failed to analyze file'
+                        });
+                    }
+                } catch (error) {
+                    console.error('Error during analysis:', error);
+                    console.error('Error stack:', error.stack);
+                    res.status(500).json({
+                        success: false,
+                        error: 'Error during file analysis: ' + (error.message || 'Unknown error')
+                    });
+                }
+            });
+        }
     } catch (error) {
-        console.error('处理上传请求时出错:', error);
-        console.error('错误堆栈:', error.stack);
+        console.error('Error processing upload request:', error);
+        console.error('Error stack:', error.stack);
         res.status(500).json({
             success: false,
             error: 'Error processing upload request: ' + (error.message || 'Unknown error')

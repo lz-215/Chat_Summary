@@ -1,11 +1,17 @@
 // Cloudflare Worker 适配器
 import { createServer } from '../index.js';
 
+// 全局变量，使其在其他模块中可访问
+globalThis.CHAT_ANALYSIS_STORAGE = null;
+
 export default {
   async fetch(request, env, ctx) {
+    // 设置全局KV存储变量，使其在其他模块中可访问
+    globalThis.CHAT_ANALYSIS_STORAGE = env.CHAT_ANALYSIS_STORAGE;
+
     // 创建Express应用
     const app = createServer();
-    
+
     // 创建一个适配器，将Express请求处理为Cloudflare Worker请求
     return handleRequest(app, request, env);
   }
@@ -21,11 +27,11 @@ export default {
 async function handleRequest(app, request, env) {
   // 创建一个新的URL对象，用于解析请求URL
   const url = new URL(request.url);
-  
+
   // 提取路径和查询参数
   const path = url.pathname;
   const query = Object.fromEntries(url.searchParams.entries());
-  
+
   // 创建一个模拟的Express请求对象
   const req = {
     method: request.method,
@@ -35,14 +41,14 @@ async function handleRequest(app, request, env) {
     headers: Object.fromEntries(request.headers.entries()),
     body: request.method !== 'GET' && request.method !== 'HEAD' ? await request.json().catch(() => ({})) : {},
   };
-  
+
   // 创建一个模拟的Express响应对象
   let statusCode = 200;
   let responseHeaders = new Headers({
     'Content-Type': 'text/html',
   });
   let responseBody = '';
-  
+
   const res = {
     status: (code) => {
       statusCode = code;
@@ -68,7 +74,7 @@ async function handleRequest(app, request, env) {
         // 尝试从KV存储中获取文件
         const fileKey = filePath.replace(/^.*[\\\/]/, ''); // 提取文件名
         const fileContent = await env.CHAT_ANALYSIS_STORAGE.get(`file:${fileKey}`);
-        
+
         if (fileContent) {
           // 根据文件扩展名设置Content-Type
           const ext = filePath.split('.').pop().toLowerCase();
@@ -82,7 +88,7 @@ async function handleRequest(app, request, env) {
             'jpeg': 'image/jpeg',
             'svg': 'image/svg+xml',
           };
-          
+
           responseHeaders.set('Content-Type', contentTypes[ext] || 'text/plain');
           responseBody = fileContent;
         } else {
@@ -95,7 +101,7 @@ async function handleRequest(app, request, env) {
         statusCode = 500;
         responseBody = 'Internal Server Error';
       }
-      
+
       return res;
     },
     download: async (filePath, fileName) => {
@@ -104,7 +110,7 @@ async function handleRequest(app, request, env) {
         // 尝试从KV存储中获取文件
         const fileKey = filePath.replace(/^.*[\\\/]/, ''); // 提取文件名
         const fileContent = await env.CHAT_ANALYSIS_STORAGE.get(`file:${fileKey}`);
-        
+
         if (fileContent) {
           responseHeaders.set('Content-Type', 'application/octet-stream');
           responseHeaders.set('Content-Disposition', `attachment; filename="${fileName || fileKey}"`);
@@ -119,21 +125,21 @@ async function handleRequest(app, request, env) {
         statusCode = 500;
         responseBody = 'Internal Server Error';
       }
-      
+
       return res;
     },
   };
-  
+
   // 处理请求
   return new Promise((resolve) => {
     // 模拟Express的路由处理
     let handled = false;
-    
+
     // 静态文件处理
     if (path.startsWith('/static/')) {
       // 处理静态文件请求
       const filePath = path.substring(1); // 移除开头的斜杠
-      
+
       // 尝试从KV存储中获取文件
       env.CHAT_ANALYSIS_STORAGE.get(`file:${filePath}`)
         .then((fileContent) => {
@@ -149,7 +155,7 @@ async function handleRequest(app, request, env) {
               'jpeg': 'image/jpeg',
               'svg': 'image/svg+xml',
             };
-            
+
             responseHeaders.set('Content-Type', contentTypes[ext] || 'text/plain');
             responseBody = fileContent;
             resolve(new Response(responseBody, { status: statusCode, headers: responseHeaders }));
@@ -166,13 +172,13 @@ async function handleRequest(app, request, env) {
       // 非静态文件请求，直接处理路由
       processRoutes();
     }
-    
+
     // 处理API和页面路由
     function processRoutes() {
       // 处理API路由
       if (path.startsWith('/api/')) {
         handled = true;
-        
+
         // 根据路径和方法调用相应的处理函数
         if (path === '/api/upload-chat' && req.method === 'POST') {
           // 处理文件上传
@@ -185,7 +191,7 @@ async function handleRequest(app, request, env) {
         } else if (path.startsWith('/api/analysis/') && req.method === 'GET') {
           // 获取分析结果
           const analysisId = path.substring('/api/analysis/'.length);
-          
+
           // 从KV存储中获取分析结果
           env.CHAT_ANALYSIS_STORAGE.get(`analysis:${analysisId}`, { type: 'json' })
             .then((data) => {
@@ -211,7 +217,7 @@ async function handleRequest(app, request, env) {
                   }
                 });
               }
-              
+
               resolve(new Response(responseBody, { status: statusCode, headers: responseHeaders }));
             })
             .catch((error) => {
@@ -220,10 +226,10 @@ async function handleRequest(app, request, env) {
                 success: false,
                 error: 'Error retrieving analysis'
               });
-              
+
               resolve(new Response(responseBody, { status: statusCode, headers: responseHeaders }));
             });
-          
+
           return; // 异步处理，提前返回
         } else {
           // 其他API路由
@@ -236,7 +242,7 @@ async function handleRequest(app, request, env) {
       // 处理页面路由
       else if (path === '/' || path === '/index.html') {
         handled = true;
-        
+
         // 返回首页
         env.CHAT_ANALYSIS_STORAGE.get('file:templates/index.html')
           .then((content) => {
@@ -247,21 +253,21 @@ async function handleRequest(app, request, env) {
               statusCode = 404;
               responseBody = 'Home page not found';
             }
-            
+
             resolve(new Response(responseBody, { status: statusCode, headers: responseHeaders }));
           })
           .catch((error) => {
             console.error('Error serving home page:', error);
             statusCode = 500;
             responseBody = 'Internal Server Error';
-            
+
             resolve(new Response(responseBody, { status: statusCode, headers: responseHeaders }));
           });
-          
+
         return; // 异步处理，提前返回
       } else if (path === '/analysis' || path === '/analysis.html') {
         handled = true;
-        
+
         // 返回分析页面
         env.CHAT_ANALYSIS_STORAGE.get('file:templates/analysis.html')
           .then((content) => {
@@ -272,26 +278,26 @@ async function handleRequest(app, request, env) {
               statusCode = 404;
               responseBody = 'Analysis page not found';
             }
-            
+
             resolve(new Response(responseBody, { status: statusCode, headers: responseHeaders }));
           })
           .catch((error) => {
             console.error('Error serving analysis page:', error);
             statusCode = 500;
             responseBody = 'Internal Server Error';
-            
+
             resolve(new Response(responseBody, { status: statusCode, headers: responseHeaders }));
           });
-          
+
         return; // 异步处理，提前返回
       }
-      
+
       // 如果没有处理请求，返回404
       if (!handled) {
         statusCode = 404;
         responseBody = 'Not Found';
       }
-      
+
       // 返回响应
       resolve(new Response(responseBody, { status: statusCode, headers: responseHeaders }));
     }

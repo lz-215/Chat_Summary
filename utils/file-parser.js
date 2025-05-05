@@ -3,11 +3,48 @@
  * 支持HTML和TXT格式的聊天记录解析
  */
 
-const fs = require('fs');
-const path = require('path');
-const cheerio = require('cheerio');
-const iconv = require('iconv-lite');
-const chardet = require('chardet');
+// 检查是否在Cloudflare环境中运行
+const isCloudflare = typeof process === 'undefined' || !process.version;
+
+// 根据环境导入模块
+let fs, path, cheerio, iconv, chardet;
+
+if (!isCloudflare) {
+    // 在Node.js环境中导入模块
+    fs = require('fs');
+    path = require('path');
+    cheerio = require('cheerio');
+    iconv = require('iconv-lite');
+    chardet = require('chardet');
+} else {
+    // 在Cloudflare环境中，这些模块不可用
+    // 提供空的实现或替代方案
+    fs = {
+        existsSync: () => false,
+        readFileSync: () => { throw new Error('fs.readFileSync not available in Cloudflare environment'); },
+        openSync: () => { throw new Error('fs.openSync not available in Cloudflare environment'); },
+        readSync: () => { throw new Error('fs.readSync not available in Cloudflare environment'); },
+        closeSync: () => { throw new Error('fs.closeSync not available in Cloudflare environment'); }
+    };
+    path = {
+        extname: (filename) => {
+            const lastDotIndex = filename.lastIndexOf('.');
+            return lastDotIndex !== -1 ? filename.substring(lastDotIndex) : '';
+        },
+        basename: (filename, ext) => {
+            let base = filename;
+            const lastSlashIndex = Math.max(filename.lastIndexOf('/'), filename.lastIndexOf('\\'));
+            if (lastSlashIndex !== -1) {
+                base = filename.substring(lastSlashIndex + 1);
+            }
+            if (ext && base.endsWith(ext)) {
+                base = base.substring(0, base.length - ext.length);
+            }
+            return base;
+        },
+        join: (...parts) => parts.join('/')
+    };
+}
 
 /**
  * 检测文件编码
@@ -711,13 +748,17 @@ function parseContent(content) {
     try {
         // 确保内容是字符串
         let textContent = '';
-        if (Buffer.isBuffer(content)) {
+        if (typeof Buffer !== 'undefined' && Buffer.isBuffer(content)) {
             // 如果是Buffer，尝试使用UTF-8解码
             textContent = content.toString('utf8');
         } else if (typeof content === 'string') {
             textContent = content;
+        } else if (content instanceof ArrayBuffer || content instanceof Uint8Array) {
+            // 在Cloudflare环境中处理ArrayBuffer或Uint8Array
+            const decoder = new TextDecoder('utf-8');
+            textContent = decoder.decode(content);
         } else {
-            throw new Error('Invalid content type. Expected string or Buffer.');
+            throw new Error('Invalid content type. Expected string, Buffer, ArrayBuffer, or Uint8Array.');
         }
 
         // 按行分割
