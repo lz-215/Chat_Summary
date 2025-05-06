@@ -4,18 +4,14 @@
  */
 
 const axios = require('axios');
-try {
-  require('dotenv').config();
-} catch (error) {
-  console.log('dotenv配置失败，可能在Serverless环境中运行:', error.message);
-}
+require('dotenv').config();
 
 // DeepSeek API配置
 const DEEPSEEK_API_URL = process.env.DEEPSEEK_API_URL || 'https://api.deepseek.com';
 const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY;
 
 // 默认模型配置
-const DEFAULT_MODEL = process.env.DEEPSEEK_MODEL || 'deepseek-chat';
+const DEFAULT_MODEL = process.env.DEEPSEEK_MODEL || 'deepseek-r1';
 
 // API可用性状态
 let apiAvailable = null; // null表示未检测，true表示可用，false表示不可用
@@ -33,14 +29,6 @@ async function isApiAvailable() {
     }
 
     const now = Date.now();
-
-    // 在Vercel环境中，假设API总是可用，避免不必要的测试请求
-    if (process.env.VERCEL) {
-        console.log('Running in Vercel environment, assuming API is available');
-        apiAvailable = true;
-        lastApiCheckTime = now;
-        return true;
-    }
 
     // 如果在过去5分钟内已经检测过，直接返回缓存的结果
     if (apiAvailable !== null && now - lastApiCheckTime < 5 * 60 * 1000) {
@@ -111,7 +99,7 @@ async function generateSummaryWithDeepSeek(messages, maxLength = 500) {
     // 首先检查API是否可用
     if (!(await isApiAvailable())) {
         console.log('DeepSeek API is not available, unable to generate summary');
-        throw new Error('无法连接到DeepSeek API，请检查网络连接或API密钥配置');
+        throw new Error('DeepSeek API is not available');
     }
 
     try {
@@ -124,21 +112,25 @@ async function generateSummaryWithDeepSeek(messages, maxLength = 500) {
         }).join('\n');
 
         // 构建提示
-        const prompt = `请对以下聊天记录进行详细分析并生成摘要，重点关注实际对话内容，忽略时间戳、问候语等无关信息。
+        const prompt = `请对以下聊天记录进行极度精简的总结，只提取核心内容，忽略所有时间戳、问候语等无关信息。
 
 聊天记录：
 ${messageContent}
 
 要求：
-1. 摘要必须基于实际聊天内容，不要生成与聊天内容无关的摘要
-2. 如果聊天内容不足或无法理解，请直接说明"无法从聊天记录中提取有效信息"
-3. 提取对话中的主要话题、讨论要点和结论
-4. 使用简洁的语言描述，但要保留关键信息
-5. 整个摘要控制在200字以内
+1. 不要使用任何标题或分类（如"会话摘要"、"关键讨论点"等）
+2. 直接以要点形式列出最重要的3-5个信息点
+3. 每个要点不超过8个汉字
+4. 使用短句，省略主语
+5. 整个摘要不超过100字
 6. 以中文回复
 
-格式示例（仅供参考，请根据实际聊天内容生成）：
-这是一段关于项目开发的讨论。参与者讨论了电商平台的进展情况，确定了三个核心功能需要优先实现。其中AR功能需要专门团队开发，初步设计预计需要两个月时间。团队决定下周继续讨论具体实施方案。`;
+格式示例：
+- 讨论电商平台进展
+- 确定三个核心功能
+- AR功能需专门开发
+- 初步设计需两个月
+- 下周继续讨论`;
 
         // 设置超时Promise
         const timeoutPromise = new Promise((_, reject) => {
@@ -146,7 +138,6 @@ ${messageContent}
         });
 
         // 调用DeepSeek API
-        console.log('Calling DeepSeek API for summary generation...');
         const apiPromise = axios.post(
             `${DEEPSEEK_API_URL}/chat/completions`,
             {
@@ -169,27 +160,13 @@ ${messageContent}
         );
 
         // 使用Promise.race竞争，谁先完成就用谁的结果
-        console.log('Waiting for DeepSeek API response...');
         const response = await Promise.race([apiPromise, timeoutPromise]);
-        console.log('DeepSeek API response received');
 
         // 返回生成的摘要
-        console.log('DeepSeek API summary generation successful');
         return response.data.choices[0].message.content.trim();
     } catch (error) {
         console.error('DeepSeek API summary generation error:', error.message);
-
-        // 提供更详细的错误信息
-        if (error.response) {
-            console.error('Error status:', error.response.status);
-            console.error('Error data:', JSON.stringify(error.response.data, null, 2));
-            throw new Error(`API error (${error.response.status}): ${JSON.stringify(error.response.data)}`);
-        } else if (error.request) {
-            console.error('No response received:', error.request);
-            throw new Error('No response received from API');
-        } else {
-            throw error;
-        }
+        throw error;
     }
 }
 
@@ -203,7 +180,7 @@ async function extractEventsWithDeepSeek(messages, limit = 5) {
     // 首先检查API是否可用
     if (!(await isApiAvailable())) {
         console.log('DeepSeek API is not available, unable to extract events');
-        throw new Error('无法连接到DeepSeek API，请检查网络连接或API密钥配置');
+        throw new Error('DeepSeek API is not available');
     }
 
     try {
@@ -216,16 +193,12 @@ async function extractEventsWithDeepSeek(messages, limit = 5) {
         }).join('\n');
 
         // 构建提示
-        const prompt = `请仔细分析以下聊天记录，提取${limit}个关键事件或重要信息。只提取实际存在于聊天记录中的内容，不要生成不存在的事件。
-
-关键事件可能包括但不限于：
-- 会议安排和时间
+        const prompt = `请从以下聊天记录中提取${limit}个关键事件或重要信息。关键事件可能包括：
+- 会议安排
 - 截止日期
 - 任务分配
 - 重要决定
 - 关键问题
-- 项目里程碑
-- 重要通知
 
 聊天记录：
 ${messageContent}
@@ -237,27 +210,32 @@ ${messageContent}
     {
       "time": "事件时间（如果有）",
       "sender": "发送者",
-      "content": "事件描述（请使用聊天记录中的原始内容，不要自行编造或过度总结）",
+      "content": "事件描述",
       "type": "事件类型（如会议、截止日期、任务等）"
     },
     ...
   ]
 }
 
-如果聊天记录中没有明确的关键事件或内容不足，请返回一个包含说明的事件：
-
+示例输出：
 {
   "events": [
     {
+      "time": "2023-05-01",
+      "sender": "张三",
+      "content": "确定项目截止日期为6月30日",
+      "type": "截止日期"
+    },
+    {
       "time": "",
-      "sender": "系统",
-      "content": "聊天记录中未发现明确的关键事件",
-      "type": "提示"
+      "sender": "李四",
+      "content": "负责UI设计部分",
+      "type": "任务分配"
     }
   ]
 }
 
-请确保返回的是有效的JSON格式，必须包含"events"数组字段。`;
+如果找不到足够的事件，请返回尽可能多的有意义的事件。请确保返回的是有效的JSON格式，必须包含"events"数组字段。`;
 
         // 设置超时Promise
         const timeoutPromise = new Promise((_, reject) => {
@@ -265,7 +243,6 @@ ${messageContent}
         });
 
         // 调用DeepSeek API，启用JSON模式
-        console.log('Calling DeepSeek API for event extraction...');
         const apiPromise = axios.post(
             `${DEEPSEEK_API_URL}/chat/completions`,
             {
@@ -288,12 +265,9 @@ ${messageContent}
         );
 
         // 使用Promise.race竞争，谁先完成就用谁的结果
-        console.log('Waiting for DeepSeek API response for event extraction...');
         const response = await Promise.race([apiPromise, timeoutPromise]);
-        console.log('DeepSeek API response for event extraction received');
 
         // 解析返回的JSON
-        console.log('DeepSeek API event extraction successful');
         const content = response.data.choices[0].message.content.trim();
         let events = [];
 
@@ -330,9 +304,9 @@ ${messageContent}
                     console.error('无法在返回的JSON中找到事件数组');
                     events = [{
                         time: '',
-                        sender: '系统',
-                        content: '无法从聊天记录中提取有效事件',
-                        type: '提示'
+                        sender: 'System',
+                        content: '无法从API响应中提取事件',
+                        type: 'Error'
                     }];
                 }
             }

@@ -11,6 +11,15 @@
     <link rel="canonical" href="https://www.wechatanalyzer.com/">
     <link rel="stylesheet" href="/static/css/main.css">
     <link rel="stylesheet" href="/static/css/home-upload.css">
+    <style>
+        /* 隐藏HTML按钮 */
+        .HTML,
+        button.HTML,
+        [data-format="HTML"],
+        .format-badge:first-child {
+            display: none !important;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -38,7 +47,7 @@
                                 <div class="upload-icon">📤</div>
                                 <span>Choose file or drag here</span>
                             </label>
-                            <input type="file" id="chat-file" name="file" accept=".txt">
+                            <input type="file" id="chat-file" name="file" accept=".html,.htm,.txt">
                         </div>
                         <div id="file-name" class="file-name"></div>
 
@@ -52,6 +61,7 @@
 
                     <div class="supported-formats">
                         <div class="format-badges">
+                            <span class="format-badge">HTML</span>
                             <span class="format-badge">TXT</span>
                         </div>
                     </div>
@@ -104,7 +114,7 @@
                 <div class="step">
                     <div class="step-number">1</div>
                     <h3>Upload File</h3>
-                    <p>Upload your chat history file (TXT format) directly on this page</p>
+                    <p>Upload your chat history file (HTML or TXT format) directly on this page</p>
                 </div>
                 <div class="step">
                     <div class="step-number">2</div>
@@ -157,5 +167,40 @@
 
     <script src="/static/js/main.js"></script>
     <script src="/static/js/home-upload.js"></script>
+    <script>
+        // 隐藏HTML按钮
+        document.addEventListener('DOMContentLoaded', function() {
+            // 隐藏所有HTML按钮
+            const htmlButtons = document.querySelectorAll('.HTML, button.HTML, [data-format="HTML"]');
+            htmlButtons.forEach(button => {
+                button.style.display = 'none';
+            });
+
+            // 监听DOM变化，隐藏动态添加的HTML按钮
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.addedNodes.length) {
+                        mutation.addedNodes.forEach(function(node) {
+                            if (node.nodeType === 1) { // 元素节点
+                                // 检查新添加的节点
+                                if (node.classList && (node.classList.contains('HTML') || node.getAttribute('data-format') === 'HTML')) {
+                                    node.style.display = 'none';
+                                }
+
+                                // 检查新添加节点的子节点
+                                const htmlElements = node.querySelectorAll('.HTML, button.HTML, [data-format="HTML"]');
+                                htmlElements.forEach(el => {
+                                    el.style.display = 'none';
+                                });
+                            }
+                        });
+                    }
+                });
+            });
+
+            // 观察整个文档的变化
+            observer.observe(document.body, { childList: true, subtree: true });
+        });
+    </script>
 </body>
 </html>

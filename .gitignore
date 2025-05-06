@@ -23,3 +23,5 @@ Thumbs.db
 # 上传和结果目录
 uploads/
 results/
+
+.vercel
