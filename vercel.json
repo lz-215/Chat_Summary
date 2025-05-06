@@ -1,7 +1,14 @@
 {
   "version": 2,
   "builds": [
-    { "src": "index.js", "use": "@vercel/node" },
+    {
+      "src": "index.js",
+      "use": "@vercel/node",
+      "config": {
+        "memory": 1024,
+        "maxDuration": 60
+      }
+    },
     { "src": "templates/**", "use": "@vercel/static" },
     { "src": "static/**", "use": "@vercel/static" }
   ],
@@ -16,11 +23,5 @@
     "DEEPSEEK_MODEL": "deepseek-chat",
     "VERCEL": "true",
     "NODE_ENV": "production"
-  },
-  "functions": {
-    "index.js": {
-      "memory": 1024,
-      "maxDuration": 60
-    }
   }
 }
